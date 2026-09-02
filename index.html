@@ -16,9 +16,12 @@
         --line: rgba(215, 237, 248, 0.2);
       }
 
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+      }
 
-      html, body {
+      html,
+      body {
         min-height: 100%;
         margin: 0;
       }
@@ -80,13 +83,15 @@
         height: auto;
       }
 
-      .links, .nav-actions {
+      .links,
+      .nav-actions {
         display: flex;
         align-items: center;
         gap: 28px;
       }
 
-      .links a, .nav-actions a {
+      .links a,
+      .nav-actions a {
         color: var(--ink);
         font-size: 14px;
         font-weight: 800;
@@ -115,7 +120,9 @@
           linear-gradient(145deg, var(--bg) 0%, var(--bg-deep) 100%);
       }
 
-      .copy { max-width: 580px; }
+      .copy {
+        max-width: 580px;
+      }
 
       .eyebrow {
         margin: 0 0 22px;
@@ -309,8 +316,13 @@
       }
 
       @media (max-width: 920px) {
-        .nav { padding: 0 22px; }
-        .links { display: none; }
+        .nav {
+          padding: 0 22px;
+        }
+
+        .links {
+          display: none;
+        }
 
         .hero {
           grid-template-columns: 1fr;
@@ -318,9 +330,17 @@
           padding: 48px 22px 58px;
         }
 
-        .copy { max-width: none; }
-        .visual { min-height: auto; }
-        .panel { min-height: 440px; }
+        .copy {
+          max-width: none;
+        }
+
+        .visual {
+          min-height: auto;
+        }
+
+        .panel {
+          min-height: 440px;
+        }
 
         .question-card {
           right: 16px;
@@ -328,11 +348,15 @@
           width: min(320px, 72%);
         }
 
-        .stamp { left: 16px; }
+        .stamp {
+          left: 16px;
+        }
       }
 
       @media (max-width: 620px) {
-        .nav-actions a:not(.outline) { display: none; }
+        .nav-actions a:not(.outline) {
+          display: none;
+        }
 
         .nav-actions .outline {
           padding: 10px 14px;
@@ -342,14 +366,18 @@
           font-size: clamp(48px, 15vw, 76px);
         }
 
-        .button { width: 100%; }
+        .button {
+          width: 100%;
+        }
 
         .panel {
           min-height: 390px;
           border-radius: 22px;
         }
 
-        .logo { width: 94%; }
+        .logo {
+          width: 94%;
+        }
 
         .question-card {
           position: relative;
@@ -391,26 +419,26 @@
 
       <main class="hero">
         <section class="copy" aria-label="lite flite introduction">
-          <p class="eyebrow">Lidar | Light | Further</p>
-          <h1>Survey from the air with cleaner light.</h1>
-          <p class="lede">A sharp flight-planning surface for lightweight lidar missions, fast routes, and field-ready capture.</p>
+          <p class="eyebrow">Insurance | Disaster Relief | Inspection</p>
+          <h1>Drone inspection when every detail matters.</h1>
+          <p class="lede">Insurance adjusting support, disaster relief drone surveying, solar and telecom inspections, plus residential and commercial property drone inspection.</p>
           <div class="cta-row">
-            <a class="button" href="#">Start building</a>
-            <a class="button secondary" href="#">See examples</a>
+            <a class="button" href="#">Request service</a>
+            <a class="button secondary" href="#">View inspections</a>
           </div>
         </section>
 
         <section class="visual" aria-label="lite flite preview">
           <div class="panel">
             <img class="logo" src="./lite-flite-logo.png" alt="lite flite">
-            <div class="stamp">Sharp<br>from<br>launch</div>
+            <div class="stamp">Rapid<br>aerial<br>intel</div>
           </div>
 
           <aside class="question-card" aria-label="Mission question preview">
-            <p>What are you mapping today?</p>
-            <div class="option"><strong>A</strong> Corridor scan</div>
-            <div class="option"><strong>B</strong> Site survey</div>
-            <div class="option"><strong>C</strong> Route test</div>
+            <p>What needs eyes in the air?</p>
+            <div class="option"><strong>A</strong> Insurance claim</div>
+            <div class="option"><strong>B</strong> Solar or telecom</div>
+            <div class="option"><strong>C</strong> Property inspection</div>
           </aside>
         </section>
       </main>
