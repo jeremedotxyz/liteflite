@@ -1,1 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>lite flite</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #224455;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        overflow: hidden;
+        background: var(--bg);
+      }
+
+      img {
+        display: block;
+        width: min(78vw, 960px);
+        height: auto;
+        user-select: none;
+      }
+
+      @media (max-width: 640px) {
+        img {
+          width: min(92vw, 560px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <img src="./lite-flite-logo.png" alt="lite flite">
+  </body>
+</html>
 
