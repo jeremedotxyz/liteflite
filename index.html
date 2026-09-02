@@ -33,6 +33,30 @@
         width: min(78vw, 960px);
         height: auto;
         user-select: none;
+        opacity: 1;
+        filter: blur(14px);
+        transform: scale(0.58);
+        animation: logoSharpen 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+      }
+
+      @keyframes logoSharpen {
+        0% {
+          opacity: 1;
+          filter: blur(14px);
+          transform: scale(0.58);
+        }
+
+        68% {
+          opacity: 1;
+          filter: blur(1px);
+          transform: scale(1.045);
+        }
+
+        to {
+          opacity: 1;
+          filter: blur(0);
+          transform: scale(1);
+        }
       }
 
       @media (max-width: 640px) {
