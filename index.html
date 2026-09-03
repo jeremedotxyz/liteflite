@@ -1,3 +1,6 @@
+Here’s the full current code:
+
+```html
 <!doctype html>
 <html lang="en">
   <head>
@@ -57,6 +60,7 @@
       }
 
       .nav {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -80,27 +84,58 @@
         height: auto;
       }
 
-      .links,
-      .nav-actions {
+      .links {
         display: flex;
         align-items: center;
+        justify-content: flex-end;
         gap: 28px;
+        margin-left: auto;
       }
 
-      .links a,
-      .nav-actions a {
+      .links a {
         color: var(--ink);
         font-size: 14px;
         font-weight: 800;
         text-decoration: none;
       }
 
-      .nav-actions .outline {
-        padding: 12px 18px;
-        border: 1px solid var(--orange);
+      .nav-toggle {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .menu-button {
+        display: none;
+        width: 44px;
+        height: 44px;
+        margin-left: auto;
+        border: 1px solid var(--line);
         border-radius: 999px;
-        color: var(--white);
-        background: var(--orange);
+        background: transparent;
+        cursor: pointer;
+        place-items: center;
+      }
+
+      .menu-button span,
+      .menu-button span::before,
+      .menu-button span::after {
+        display: block;
+        width: 18px;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--ink);
+        content: "";
+      }
+
+      .menu-button span::before { transform: translateY(-6px); }
+      .menu-button span::after { transform: translateY(4px); }
+
+      .nav-toggle:focus-visible + .menu-button {
+        outline: 2px solid var(--orange);
+        outline-offset: 4px;
       }
 
       .hero {
@@ -118,13 +153,6 @@
       }
 
       .copy { max-width: 580px; }
-
-      .eyebrow {
-        margin: 0 0 22px;
-        color: var(--orange);
-        font-size: 15px;
-        font-weight: 900;
-      }
 
       h1 {
         margin: 0;
@@ -278,7 +306,40 @@
 
       @media (max-width: 920px) {
         .nav { padding: 0 22px; }
-        .links { display: none; }
+
+        .menu-button { display: grid; }
+
+        .links {
+          position: absolute;
+          top: calc(100% + 10px);
+          right: 22px;
+          z-index: 10;
+          display: none;
+          flex-direction: column;
+          align-items: stretch;
+          width: min(220px, calc(100vw - 44px));
+          gap: 0;
+          margin-left: 0;
+          padding: 10px;
+          border: 1px solid var(--line);
+          border-radius: 18px;
+          background: rgba(23, 52, 67, 0.98);
+          box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+        }
+
+        .links a {
+          min-height: 44px;
+          padding: 14px 12px 0;
+          border-radius: 10px;
+        }
+
+        .links a:hover {
+          background: rgba(215, 237, 248, 0.08);
+        }
+
+        .nav-toggle:checked ~ .links {
+          display: flex;
+        }
 
         .hero {
           grid-template-columns: 1fr;
@@ -298,12 +359,6 @@
       }
 
       @media (max-width: 620px) {
-        .nav-actions a:not(.outline) { display: none; }
-
-        .nav-actions .outline {
-          padding: 10px 14px;
-        }
-
         h1 {
           font-size: clamp(48px, 15vw, 76px);
         }
@@ -335,21 +390,19 @@
         <a class="brand" href="#" aria-label="lite flite">
           <img src="./lite-flite-logo.png" alt="lite flite">
         </a>
+        <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Open navigation">
+        <label class="menu-button" for="nav-toggle" aria-label="Open navigation">
+          <span></span>
+        </label>
         <div class="links">
-          <a href="#">Products</a>
-          <a href="#">Use cases</a>
-          <a href="#">Resources</a>
+          <a href="#">Services</a>
           <a href="#">Pricing</a>
-        </div>
-        <div class="nav-actions">
-          <a href="#">Log in</a>
-          <a class="outline" href="#">Get started</a>
+          <a href="#">About</a>
         </div>
       </nav>
 
       <main class="hero">
         <section class="copy" aria-label="lite flite introduction">
-          <p class="eyebrow">LiDAR and Drone Services</p>
           <h1>Inspection when every detail matters.</h1>
           <p class="lede">Insurance adjusting support, disaster relief LiDAR and drone surveying, solar and telecom inspections, plus residential and commercial property drone inspection.</p>
           <div class="cta-row">
@@ -374,3 +427,4 @@
     </div>
   </body>
 </html>
+```
