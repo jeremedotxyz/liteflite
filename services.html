@@ -1,1 +1,392 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Services | lite flite</title>
+    <style>
+      :root {
+        --bg: #224455;
+        --bg-deep: #173443;
+        --ink: #d7edf8;
+        --muted: rgba(215, 237, 248, 0.72);
+        --panel: #1c3f50;
+        --orange: #ff6a20;
+        --white: #ffffff;
+        --line: rgba(215, 237, 248, 0.2);
+      }
 
+      * { box-sizing: border-box; }
+
+      html, body {
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .page {
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 80% 18%, rgba(255, 106, 32, 0.18), transparent 28%),
+          linear-gradient(145deg, var(--bg) 0%, var(--bg-deep) 100%);
+      }
+
+      .nav {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 78px;
+        padding: 0 42px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(23, 52, 67, 0.96);
+        backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        width: 188px;
+        height: 54px;
+      }
+
+      .brand img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .links {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 28px;
+        margin-left: auto;
+      }
+
+      .links a {
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .links a[aria-current="page"] {
+        color: var(--white);
+      }
+
+      .nav-toggle {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .menu-button {
+        display: none;
+        width: 44px;
+        height: 44px;
+        margin-left: auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: transparent;
+        cursor: pointer;
+        place-items: center;
+      }
+
+      .menu-button span,
+      .menu-button span::before,
+      .menu-button span::after {
+        display: block;
+        width: 18px;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--ink);
+        content: "";
+      }
+
+      .menu-button span::before { transform: translateY(-6px); }
+      .menu-button span::after { transform: translateY(4px); }
+
+      .nav-toggle:focus-visible + .menu-button {
+        outline: 2px solid var(--orange);
+        outline-offset: 4px;
+      }
+
+      main {
+        width: min(1280px, 100%);
+        margin: 0 auto;
+        padding: 70px 42px 90px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(380px, 0.75fr);
+        align-items: center;
+        gap: 56px;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        color: var(--white);
+        font-size: clamp(54px, 7vw, 104px);
+        font-weight: 900;
+        line-height: 0.9;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 610px;
+        margin: 28px 0 0;
+        color: var(--muted);
+        font-size: clamp(19px, 2vw, 25px);
+        font-weight: 700;
+        line-height: 1.24;
+      }
+
+      .quick-card {
+        padding: 28px;
+        border: 2px solid var(--ink);
+        border-radius: 22px;
+        background: #d7edf8;
+        color: var(--bg-deep);
+      }
+
+      .quick-card p {
+        margin: 0 0 18px;
+        font-size: 23px;
+        font-weight: 900;
+        line-height: 1.1;
+      }
+
+      .option {
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+        margin-top: 10px;
+        padding: 0 14px;
+        border: 1px solid rgba(23, 52, 67, 0.18);
+        border-radius: 12px;
+        color: var(--bg-deep);
+        font-size: 15px;
+        font-weight: 800;
+      }
+
+      .option strong {
+        display: inline-grid;
+        width: 22px;
+        height: 22px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background: var(--orange);
+        color: var(--white);
+        font-size: 12px;
+        place-items: center;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 58px;
+      }
+
+      .service {
+        min-height: 250px;
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(28, 63, 80, 0.72);
+        box-shadow: inset 0 0 0 1px rgba(215, 237, 248, 0.08);
+      }
+
+      .service strong {
+        color: var(--orange);
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .service h2 {
+        margin: 20px 0 0;
+        color: var(--white);
+        font-size: 32px;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .service p {
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+
+      .pricing {
+        display: grid;
+        grid-template-columns: minmax(0, 0.7fr) minmax(340px, 0.3fr);
+        gap: 18px;
+        margin-top: 20px;
+        padding: 30px;
+        border: 2px solid rgba(25, 25, 25, 0.92);
+        border-radius: 28px;
+        background:
+          linear-gradient(120deg, transparent 0 48%, rgba(255, 255, 255, 0.1) 48% 49%, transparent 49%),
+          var(--panel);
+      }
+
+      .pricing h2 {
+        margin: 0;
+        color: var(--white);
+        font-size: clamp(34px, 4.8vw, 66px);
+        font-weight: 900;
+        line-height: 0.94;
+      }
+
+      .pricing p {
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        margin-top: 8px;
+        padding: 0 28px;
+        border: 2px solid var(--orange);
+        border-radius: 999px;
+        background: var(--orange);
+        color: var(--white);
+        font-size: 16px;
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      @media (max-width: 920px) {
+        .nav { padding: 0 22px; }
+        .menu-button { display: grid; }
+
+        .links {
+          position: absolute;
+          top: calc(100% + 10px);
+          right: 22px;
+          z-index: 10;
+          display: none;
+          flex-direction: column;
+          align-items: stretch;
+          width: min(220px, calc(100vw - 44px));
+          gap: 0;
+          margin-left: 0;
+          padding: 10px;
+          border: 1px solid var(--line);
+          border-radius: 18px;
+          background: rgba(23, 52, 67, 0.98);
+          box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+        }
+
+        .links a {
+          min-height: 44px;
+          padding: 14px 12px 0;
+          border-radius: 10px;
+        }
+
+        .links a:hover { background: rgba(215, 237, 248, 0.08); }
+        .nav-toggle:checked ~ .links { display: flex; }
+
+        main { padding: 48px 22px 70px; }
+        .hero, .pricing { grid-template-columns: 1fr; gap: 38px; }
+        .services-grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 620px) {
+        h1 { font-size: clamp(48px, 15vw, 76px); }
+        .quick-card, .service, .pricing { border-radius: 22px; }
+        .service h2 { font-size: 28px; }
+        .button { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="./lite-flite-working.html" aria-label="lite flite home">
+          <img src="./lite-flite-logo.png" alt="lite flite">
+        </a>
+        <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Open navigation">
+        <label class="menu-button" for="nav-toggle" aria-label="Open navigation">
+          <span></span>
+        </label>
+        <div class="links">
+          <a href="./services.html" aria-current="page">Services</a>
+          <a href="#pricing">Pricing</a>
+          <a href="./about.html">About</a>
+        </div>
+      </nav>
+
+      <main>
+        <section class="hero" aria-label="lite flite services">
+          <div>
+            <h1>Aerial inspection for the work that cannot wait.</h1>
+            <p class="lede">Choose the flight profile that fits the job: claim documentation, LiDAR mapping, infrastructure review, or property inspection.</p>
+          </div>
+
+          <aside class="quick-card" aria-label="Service selector preview">
+            <p>What needs eyes in the air?</p>
+            <div class="option"><strong>A</strong> Insurance claim</div>
+            <div class="option"><strong>B</strong> Solar or telecom</div>
+            <div class="option"><strong>C</strong> Property inspection</div>
+          </aside>
+        </section>
+
+        <section class="services-grid" aria-label="Service list">
+          <article class="service">
+            <strong>INSURANCE</strong>
+            <h2>Claim documentation</h2>
+            <p>Roof, exterior, storm, fire, and site condition imagery captured for adjusters, carriers, and property owners.</p>
+          </article>
+
+          <article class="service">
+            <strong>LIDAR</strong>
+            <h2>Mapping and measurement</h2>
+            <p>LiDAR-supported site scans for terrain, access, elevations, perimeter review, and measurable property context.</p>
+          </article>
+
+          <article class="service">
+            <strong>INFRASTRUCTURE</strong>
+            <h2>Solar and telecom</h2>
+            <p>Panel, roofline, tower, equipment, and access inspections where repeatable angles and clear records matter.</p>
+          </article>
+
+          <article class="service">
+            <strong>PROPERTY</strong>
+            <h2>Residential and commercial</h2>
+            <p>General property condition capture for owners, builders, managers, and teams preparing repair or maintenance work.</p>
+          </article>
+        </section>
+
+        <section class="pricing" id="pricing" aria-label="Pricing">
+          <div>
+            <h2>Pricing follows the site, scope, and response window.</h2>
+            <p>Simple inspection flights, priority claim response, and LiDAR-supported mapping are quoted by mission so the deliverable matches the job.</p>
+          </div>
+          <div>
+            <a class="button" href="#">Request service</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
