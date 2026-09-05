@@ -46,40 +46,6 @@
       .skip-link { position: fixed; top: 12px; left: 12px; z-index: 20; padding: 14px 20px; background: var(--ink); color: var(--bg-deep); transform: translateY(-160%); }
       .skip-link:focus { transform: translateY(0); }
 
-      .intro {
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        display: grid;
-        place-items: center;
-        background: var(--bg);
-        pointer-events: none;
-        animation: introExit .9s ease 2.65s forwards;
-      }
-      .intro img {
-        display: block;
-        width: min(78vw, 960px);
-        max-height: 80svh;
-        height: auto;
-        object-fit: contain;
-        user-select: none;
-        animation: introLogo 1.55s ease-out .25s both;
-      }
-      .page { animation: pageIn .8s ease 2.95s both; }
-      .intro-dismissed .intro, body:has(:focus-visible) .intro { display: none; }
-      .intro-dismissed .page, body:has(:focus-visible) .page { animation: none; }
-      @keyframes introLogo {
-        from { opacity: 0; transform: translateY(18px) scale(.985); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
-      }
-      @keyframes introExit {
-        to { opacity: 0; visibility: hidden; }
-      }
-      @keyframes pageIn {
-        from { opacity: 0; visibility: hidden; transform: translateY(16px); }
-        to { opacity: 1; visibility: visible; transform: translateY(0); }
-      }
-
       .site-header { position: relative; z-index: 5; background: var(--bg); }
       .header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 116px; }
       /* Window the supplied logo's empty margins without altering its artwork. */
@@ -261,8 +227,6 @@
       }
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
-        .intro { display: none; }
-        .page { animation: none; }
         *, *::before, *::after { transition: none !important; }
       }
 
@@ -324,17 +288,38 @@
       @media (min-width: 681px) and (max-height: 740px) {
         .inner-hero { height: max(360px, calc(100svh - 168px)); }
       }
+
+      .home-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; margin-left: auto; margin-right: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 2px; color: var(--ink); font-size: 14px; font-weight: 500; }
+      .home-button .icon { width: 18px; height: 18px; }
+      .home-button:hover { background: var(--ink); color: var(--bg-deep); border-color: var(--ink); }
+      .nav-links a.mobile-home { display: none; }
+      @media (max-width: 680px) {
+        .home-button { width: 44px; padding: 0; margin-right: 12px; flex-shrink: 0; }
+        .home-button-label { display: none; }
+        .nav-links a.mobile-home { display: flex; }
+      }
     </style>
-    <noscript><style>.video-control { display: none; } @media(max-width: 680px) { .menu-toggle { display: none; } .nav-links { position: static; visibility: visible; flex-direction: row; gap: 14px; padding: 0; border: 0; } .nav-links a { font-size: 12px; border: 0; } .brand { width: 132px; } }</style></noscript>
+    <noscript>
+      <style>
+        .video-control { display: none; }
+        @media (max-width: 680px) {
+          .header-inner { flex-wrap: wrap; padding-bottom: 14px; }
+          .menu-toggle { display: none; }
+          .nav-links { position: static; visibility: visible; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; width: 100%; gap: 14px; padding: 0; border: 0; }
+          .nav-links a { font-size: 12px; border: 0; }
+          .nav-links a.mobile-home { display: none; }
+          .brand { width: 132px; }
+          .home-button { margin-right: 0; }
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="intro" aria-hidden="true">
-      <img src="./lite-flite-logo.png" alt="" width="1536" height="1024" fetchpriority="high">
-    </div>
     <!-- Icon paths from Lucide, ISC license. -->
     <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
+        <symbol id="home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
         <symbol id="arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
         <symbol id="arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
         <symbol id="menu" viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></symbol>
@@ -347,14 +332,19 @@
     <div class="page">
     <header class="site-header">
       <nav class="header-inner wrap" aria-label="Main navigation">
-        <a class="brand" href="./lite-flite-working.html" aria-label="lite flite home">
+        <a class="brand" href="./index.html" aria-label="lite flite home">
           <img src="./lite-flite-logo.png" alt="lite flite - LiDAR, Light, Further" width="1536" height="1024">
+        </a>
+        <a class="home-button" href="./index.html" aria-label="Return to home page" title="Home">
+          <svg class="icon" aria-hidden="true"><use href="#home"/></svg>
+          <span class="home-button-label">Home</span>
         </a>
         <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation">
           <svg class="icon menu-open" aria-hidden="true"><use href="#menu"/></svg>
           <svg class="icon menu-close" aria-hidden="true"><use href="#close"/></svg>
         </button>
         <div class="nav-links" id="main-navigation">
+          <a class="mobile-home" href="./index.html">Home</a>
           <a href="./services.html" aria-current="page">Services</a>
           <a href="#pricing">Pricing</a>
           <a href="./about.html">About</a>
@@ -481,17 +471,14 @@
 
     <footer class="site-footer">
       <div class="footer-inner wrap">
-        <a class="footer-brand" href="./lite-flite-working.html" aria-label="lite flite home">lite flite</a>
-        <nav class="footer-nav" aria-label="Footer navigation"><a href="./services.html" aria-current="page">Services</a><a href="#pricing">Pricing</a><a href="./about.html">About</a></nav>
+        <a class="footer-brand" href="./index.html" aria-label="lite flite home">lite flite</a>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="./index.html">Home</a><a href="./services.html" aria-current="page">Services</a><a href="#pricing">Pricing</a><a href="./about.html">About</a></nav>
         <p class="copyright">&copy; <span id="copyright-year">2026</span> lite flite</p>
       </div>
     </footer>
     </div>
 
     <script>
-      function dismissIntro() { document.body.classList.add('intro-dismissed'); }
-      document.querySelector('.skip-link').addEventListener('focus', dismissIntro);
-
       const menuButton = document.querySelector('.menu-toggle');
       const navigation = document.querySelector('#main-navigation');
       const mobile = window.matchMedia('(max-width: 680px)');
@@ -506,7 +493,6 @@
       menuButton.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
       navigation.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
       document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') dismissIntro();
         if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') setMenu(false, true);
       });
       document.addEventListener('click', event => { if (!event.target.closest('.site-header')) setMenu(false); });
