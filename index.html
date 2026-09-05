@@ -266,7 +266,20 @@
         *, *::before, *::after { transition: none !important; }
       }
     </style>
-    <noscript><style>.video-control { display: none; } @media(max-width: 680px) { .menu-toggle { display: none; } .nav-links { position: static; visibility: visible; flex-direction: row; gap: 14px; padding: 0; border: 0; } .nav-links a { font-size: 12px; border: 0; } .brand { width: 132px; } }</style></noscript>
+    <noscript>
+      <style>
+        .video-control { display: none; }
+        @media (max-width: 680px) {
+          .header-inner { flex-wrap: wrap; padding-bottom: 14px; }
+          .menu-toggle { display: none; }
+          .nav-links { position: static; visibility: visible; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; width: 100%; gap: 14px; padding: 0; border: 0; }
+          .nav-links a { font-size: 12px; border: 0; }
+          .nav-links a.mobile-home { display: none; }
+          .brand { width: 132px; }
+          .home-button { margin-right: 0; }
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -288,7 +301,7 @@
     <div class="page">
     <header class="site-header">
       <nav class="header-inner wrap" aria-label="Main navigation">
-        <a class="brand" href="./lite-flite-working.html" aria-label="lite flite home">
+        <a class="brand" href="./index.html" aria-label="lite flite home">
           <img src="./lite-flite-logo.png" alt="lite flite - LiDAR, Light, Further" width="1536" height="1024">
         </a>
         <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation">
@@ -399,8 +412,8 @@
 
     <footer class="site-footer">
       <div class="footer-inner wrap">
-        <a class="footer-brand" href="./lite-flite-working.html" aria-label="lite flite home">lite flite</a>
-        <nav class="footer-nav" aria-label="Footer navigation"><a href="./services.html">Services</a><a href="./services.html#pricing">Pricing</a><a href="./about.html">About</a></nav>
+        <a class="footer-brand" href="./index.html" aria-label="lite flite home">lite flite</a>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="./index.html" aria-current="page">Home</a><a href="./services.html">Services</a><a href="./services.html#pricing">Pricing</a><a href="./about.html">About</a></nav>
         <p class="copyright">&copy; <span id="copyright-year">2026</span> lite flite</p>
       </div>
     </footer>
@@ -474,3 +487,4 @@
     </script>
   </body>
 </html>
+```
