@@ -46,6 +46,40 @@
       .skip-link { position: fixed; top: 12px; left: 12px; z-index: 20; padding: 14px 20px; background: var(--ink); color: var(--bg-deep); transform: translateY(-160%); }
       .skip-link:focus { transform: translateY(0); }
 
+      .intro {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: grid;
+        place-items: center;
+        background: var(--bg);
+        pointer-events: none;
+        animation: introExit .9s ease 2.65s forwards;
+      }
+      .intro img {
+        display: block;
+        width: min(78vw, 960px);
+        max-height: 80svh;
+        height: auto;
+        object-fit: contain;
+        user-select: none;
+        animation: introLogo 1.55s ease-out .25s both;
+      }
+      .page { animation: pageIn .8s ease 2.95s both; }
+      .intro-dismissed .intro, body:has(:focus-visible) .intro { display: none; }
+      .intro-dismissed .page, body:has(:focus-visible) .page { animation: none; }
+      @keyframes introLogo {
+        from { opacity: 0; transform: translateY(18px) scale(.985); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes introExit {
+        to { opacity: 0; visibility: hidden; }
+      }
+      @keyframes pageIn {
+        from { opacity: 0; visibility: hidden; transform: translateY(16px); }
+        to { opacity: 1; visibility: visible; transform: translateY(0); }
+      }
+
       .site-header { position: relative; z-index: 5; background: var(--bg); }
       .header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 116px; }
       /* Window the supplied logo's empty margins without altering its artwork. */
@@ -227,6 +261,8 @@
       }
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
+        .intro { display: none; }
+        .page { animation: none; }
         *, *::before, *::after { transition: none !important; }
       }
     </style>
@@ -234,6 +270,9 @@
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <div class="intro" aria-hidden="true">
+      <img src="./lite-flite-logo.png" alt="" width="1536" height="1024" fetchpriority="high">
+    </div>
     <!-- Icon paths from Lucide, ISC license. -->
     <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
@@ -246,6 +285,7 @@
       </defs>
     </svg>
 
+    <div class="page">
     <header class="site-header">
       <nav class="header-inner wrap" aria-label="Main navigation">
         <a class="brand" href="./lite-flite-working.html" aria-label="lite flite home">
@@ -364,8 +404,12 @@
         <p class="copyright">&copy; <span id="copyright-year">2026</span> lite flite</p>
       </div>
     </footer>
+    </div>
 
     <script>
+      function dismissIntro() { document.body.classList.add('intro-dismissed'); }
+      document.querySelector('.skip-link').addEventListener('focus', dismissIntro);
+
       const menuButton = document.querySelector('.menu-toggle');
       const navigation = document.querySelector('#main-navigation');
       const mobile = window.matchMedia('(max-width: 680px)');
@@ -380,6 +424,7 @@
       menuButton.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
       navigation.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
       document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') dismissIntro();
         if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') setMenu(false, true);
       });
       document.addEventListener('click', event => { if (!event.target.closest('.site-header')) setMenu(false); });
