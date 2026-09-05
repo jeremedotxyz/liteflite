@@ -235,9 +235,11 @@
       .inner-hero { height: clamp(440px, calc(100svh - 290px), 600px); }
       .principle-strip .service-strip-inner { grid-template-columns: repeat(3, 1fr); }
       .about-story { padding-block: 88px 96px; background: var(--ink); color: var(--bg-deep); }
-      .story-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; }
+      .story-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); grid-template-areas: "label content"; align-items: start; gap: 48px; }
+      .story-layout > .section-label { grid-area: label; }
+      .story-copy { grid-area: content; min-width: 0; }
       .story-copy h2 { max-width: 760px; font-size: 48px; line-height: 1.12; font-weight: 400; }
-      .story-paragraphs { display: grid; grid-template-columns: 1fr 1fr; gap: 38px; margin-top: 30px; }
+      .story-paragraphs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px; margin-top: 30px; }
       .story-paragraphs p { color: var(--bg); font-size: 16px; line-height: 1.8; }
       .principles { margin-top: 80px; padding-top: 30px; border-top: 1px solid rgba(23, 52, 67, .32); }
       .principles-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 28px; margin-bottom: 36px; }
@@ -253,14 +255,12 @@
       .statement-layout .number { color: var(--orange); opacity: 1; }
       .statement-copy h2 { max-width: 760px; font-size: 42px; line-height: 1.2; font-weight: 400; }
       .statement-copy .text-link { margin-top: 30px; }
-      .founders { margin-top: 64px; padding-top: 30px; border-top: 1px solid rgba(23, 52, 67, .32); }
       .founders { padding-block: 76px; background: var(--ink); color: var(--bg-deep); }
       .founder-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; margin: 0; padding: 0; list-style: none; }
       .founder-list li { padding-top: 26px; border-top: 1px solid rgba(23, 52, 67, .25); }
       .founder-name { margin: 0; font-size: 32px; line-height: 1.2; font-weight: 500; }
       .founder-role { margin-top: 12px; color: var(--bg); font-size: 14px; line-height: 1.6; }
       @media (max-width: 680px) {
-        .founders { margin-top: 48px; padding-top: 24px; }
         .founders { padding-block: 56px; }
         .founder-list { grid-template-columns: 1fr; gap: 28px; }
         .founder-list li { padding-top: 22px; }
@@ -273,6 +273,7 @@
       }
       @media (max-width: 980px) {
         .story-layout, .statement-layout { grid-template-columns: 1fr; gap: 26px; }
+        .story-layout { grid-template-areas: "label" "content"; }
         .about-story { padding-block: 72px; }
       }
       @media (max-width: 680px) {
@@ -371,11 +372,8 @@
         <video class="hero-video" id="field-video" src="./disaster.mp4" poster="./disaster-poster.jpg" muted loop playsinline preload="metadata" aria-label="Aerial footage of properties and roads following a disaster"></video>
         <div class="hero-inner wrap">
           <div class="hero-content">
-            <h1 id="hero-heading">About lite flite.</h1>
             <h1 id="hero-heading">Our mission.</h1>
             <div class="hero-description">
-              <p>Aerial capture and practical documentation for property owners, adjusters, builders, and operators.</p>
-              <a class="primary-link" href="#approach">How we work <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
               <p>To turn aerial data into clear, practical information that helps people understand conditions and make informed decisions.</p>
               <a class="primary-link" href="#mission">Read our mission <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
             </div>
@@ -397,44 +395,21 @@
         </div>
       </nav>
 
-      <section class="about-story" aria-labelledby="story-heading">
       <section class="about-story" id="mission" aria-labelledby="story-heading">
         <div class="wrap">
           <div class="story-layout">
-            <p class="section-label"><span class="number">01 /</span> THE WORK</p>
             <p class="section-label"><span class="number">01 /</span> OUR MISSION</p>
             <div class="story-copy">
-              <h2 id="story-heading">Built for hard-to-reach details.</h2>
               <h2 id="story-heading">Make hard-to-reach details clear and useful.</h2>
               <div class="story-paragraphs">
-                <p>lite flite helps property owners, adjusters, builders, and operators see conditions clearly without slowing the work on the ground.</p>
-                <p>From claim documentation and disaster relief to infrastructure and property inspection, we bring aerial capture and practical reporting to the questions a site presents.</p>
                 <p>Our mission is to make aerial data accessible and useful to the people making decisions on the ground. Through LiDAR, drone surveying, and inspection, we help property owners, adjusters, builders, and operators see conditions clearly.</p>
                 <p>Whether the work involves a claim, disaster relief, infrastructure, or a property, our purpose is the same: capture the details that matter and present them in a practical record that supports the next decision.</p>
               </div>
             </div>
           </div>
 
-          <section class="founders" id="founders" aria-labelledby="founders-heading">
-            <div class="principles-heading">
-              <p class="section-label"><span class="number">02 /</span> THE PEOPLE</p>
-              <h2 id="founders-heading">Founders.</h2>
-            </div>
-            <ul class="founder-list">
-              <li>
-                <h3 class="founder-name">Tim Weir</h3>
-                <p class="founder-role">Co-founder</p>
-              </li>
-              <li>
-                <h3 class="founder-name">Jereme Abernathy</h3>
-                <p class="founder-role">Co-founder</p>
-              </li>
-            </ul>
-          </section>
-
           <section class="principles" id="approach" aria-labelledby="principles-heading">
             <div class="principles-heading">
-              <p class="section-label"><span class="number">03 /</span> OUR APPROACH</p>
               <p class="section-label"><span class="number">02 /</span> OUR APPROACH</p>
               <h2 id="principles-heading">Three things that guide the work.</h2>
             </div>
@@ -461,7 +436,6 @@
 
       <section class="statement-section" aria-labelledby="statement-heading">
         <div class="statement-layout wrap">
-          <p class="section-label"><span class="number">04 /</span> THE RESULT</p>
           <p class="section-label"><span class="number">03 /</span> THE RESULT</p>
           <div class="statement-copy">
             <h2 id="statement-heading">Careful capture and clear documentation turn uncertain sites into usable evidence.</h2>
