@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#224455"><title>Client Portal | lite flite</title></head>
+<body class="workspace">
+  <header class="app-header">
+    <a class="portal-brand" href="/index.html" aria-label="lite flite home"><img src="/lite-flite-logo.png" alt="lite flite"></a>
+    <span class="app-title">Client portal</span><span class="header-divider"></span><span id="header-project" class="header-project">Projects</span>
+    <div class="account-tools"><span id="account-name"></span><button class="icon-button" id="account-settings" aria-label="Change password" title="Change password"><i data-lucide="settings-2"></i></button><button class="icon-button" id="sign-out" aria-label="Sign out" title="Sign out"><i data-lucide="log-out"></i></button></div>
+  </header>
+  <div class="mobile-bar"><button class="text-button" id="toggle-projects" aria-expanded="false" aria-controls="project-sidebar"><i data-lucide="folder"></i> Projects</button><span id="mobile-file">Workspace</span><button class="icon-button" id="toggle-inspector" aria-expanded="false" aria-controls="inspector" aria-label="Model properties" title="Model properties"><i data-lucide="sliders-horizontal"></i></button></div>
+  <div class="workspace-body">
+    <aside class="project-sidebar" id="project-sidebar" aria-label="Project library">
+      <div class="sidebar-title"><h1>Projects</h1><button id="new-project" class="icon-button admin-only" aria-label="New project" title="New project" hidden><i data-lucide="plus"></i></button></div>
+      <div class="search-field"><i data-lucide="search"></i><input id="project-search" type="search" aria-label="Search projects" placeholder="Search projects"></div>
+      <div id="project-list" class="project-list"><p class="sidebar-message">Loading projects...</p></div>
+      <div class="sidebar-bottom"><button id="new-client" class="text-button admin-only" hidden><i data-lucide="user-plus"></i> Add client</button><a href="/index.html" class="text-button"><i data-lucide="arrow-left"></i> Back to website</a></div>
+    </aside>
+    <main class="model-workspace">
+      <div class="project-heading"><div><div class="project-kicker"><span id="project-status">WORKSPACE</span><span class="sample-badge" id="sample-badge" hidden>DEMO DATA</span></div><h2 id="project-name">Your project library</h2><p id="project-description"></p></div><button id="upload-model" class="secondary-button admin-only" hidden><i data-lucide="upload"></i><span>Upload model</span></button></div>
+      <div class="model-bar"><div class="model-select-field"><i data-lucide="box"></i><select id="model-select" aria-label="Select delivered model" disabled><option>No model selected</option></select></div><span id="model-size" class="secondary-meta"></span><a id="download-model" class="text-button download-link" aria-disabled="true"><i data-lucide="download"></i><span>Download</span></a></div>
+      <div class="viewer-shell" id="viewer-shell">
+        <div id="viewer" aria-label="Interactive 3D model viewer"></div>
+        <div class="viewer-toolbar" role="toolbar" aria-label="3D viewer tools">
+          <button class="tool-button" id="fit-view" title="Fit model" aria-label="Fit model" disabled><i data-lucide="scan"></i></button>
+          <span class="tool-separator"></span>
+          <button class="tool-button" data-view="perspective" title="Perspective view" aria-label="Perspective view" aria-pressed="true" disabled><i data-lucide="box"></i></button>
+          <button class="tool-button" data-view="top" title="Top view" aria-label="Top view" aria-pressed="false" disabled><i data-lucide="panel-top"></i></button>
+          <button class="tool-button" data-view="front" title="Front view" aria-label="Front view" aria-pressed="false" disabled><i data-lucide="square"></i></button>
+          <span class="tool-separator"></span>
+          <button class="tool-button" id="measure-toggle" title="Measure distance" aria-label="Measure distance" aria-pressed="false" disabled><i data-lucide="ruler"></i></button>
+          <button class="tool-button" id="clear-measurements" title="Clear measurements" aria-label="Clear measurements" disabled><i data-lucide="eraser"></i></button>
+          <span class="tool-separator"></span>
+          <button class="tool-button" id="fullscreen" title="Full screen" aria-label="Full screen"><i data-lucide="maximize"></i></button>
+        </div>
+        <div id="viewer-message" class="viewer-message"><i data-lucide="folder-open"></i><h3>Select a project</h3><p>Your models and scans appear here.</p></div>
+        <div id="measurement-label" class="measurement-label" hidden></div>
+        <div class="viewer-footer"><span id="viewer-mode">PERSPECTIVE</span><span id="viewer-state">No model loaded</span><span class="axis-key"><b>X</b><b>Y</b><b>Z</b></span></div>
+      </div>
+    </main>
+    <aside class="inspector" id="inspector" aria-label="Model properties">
+      <div class="inspector-title"><h2>Model properties</h2><i data-lucide="box"></i></div>
+      <section class="inspector-section"><h3>Model</h3><dl class="properties"><div><dt>Format</dt><dd id="info-format">--</dd></div><div><dt>Vertices</dt><dd id="info-vertices">--</dd></div><div><dt>Triangles</dt><dd id="info-triangles">--</dd></div><div><dt>Delivered</dt><dd id="info-date">--</dd></div></dl></section>
+      <section class="inspector-section"><h3>Dimensions</h3><dl class="properties"><div><dt>X</dt><dd id="dimension-x">--</dd></div><div><dt>Y</dt><dd id="dimension-y">--</dd></div><div><dt>Z</dt><dd id="dimension-z">--</dd></div></dl><p id="unit-note" class="secondary-meta">Model units</p></section>
+      <section class="inspector-section"><h3>Display</h3><label class="check-row"><span>Ground grid</span><input id="show-grid" type="checkbox" checked></label><label class="check-row"><span>Wireframe</span><input id="show-wireframe" type="checkbox"></label><label class="range-label" for="point-size">Point size <output id="point-size-value">2</output></label><input id="point-size" type="range" min="1" max="8" value="2" step="1" aria-label="Point size"></section>
+      <section class="inspector-section"><h3>Section plane</h3><select id="clip-axis" aria-label="Section axis"><option value="none">Off</option><option value="x">X axis</option><option value="y">Y axis</option><option value="z">Z axis</option></select><label class="range-label" for="clip-position">Position <output id="clip-value">100%</output></label><input id="clip-position" type="range" min="0" max="100" value="100" aria-label="Section position" disabled></section>
+      <section class="inspector-section"><h3>Measurements <span id="measurement-count">0</span></h3><ol id="measurements" class="measurements"></ol><p id="measurement-empty" class="secondary-meta">No measurements</p></section>
+    </aside>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="project-dialog"><form id="project-form"><div class="dialog-heading"><h2>New project</h2><button type="button" class="icon-button close-dialog" aria-label="Close"><i data-lucide="x"></i></button></div><label for="project-client">Client</label><select id="project-client" name="ownerId" required></select><label for="new-project-name">Project name</label><input id="new-project-name" name="name" required maxlength="160"><label for="new-project-description">Description</label><textarea id="new-project-description" name="description" rows="3" maxlength="1000"></textarea><p class="form-message" role="status"></p><button class="primary-button" type="submit">Create project <i data-lucide="arrow-right"></i></button></form></dialog>
+  <dialog id="upload-dialog"><form id="upload-form"><div class="dialog-heading"><h2>Upload model</h2><button type="button" class="icon-button close-dialog" aria-label="Close"><i data-lucide="x"></i></button></div><label for="model-file">Model file</label><input id="model-file" type="file" name="model" accept=".glb,.obj,.ply,.stl" required><p class="secondary-meta">GLB, OBJ, PLY, or STL. Up to 100 MB.</p><label for="model-units">Source units</label><select id="model-units" name="units"><option value="units">Unspecified model units</option><option value="m">Meters</option><option value="ft">Feet</option></select><p class="form-message" role="status"></p><button class="primary-button" type="submit">Upload delivery <i data-lucide="upload"></i></button></form></dialog>
+  <dialog id="client-dialog"><form id="client-form"><div class="dialog-heading"><h2>Add client</h2><button type="button" class="icon-button close-dialog" aria-label="Close"><i data-lucide="x"></i></button></div><label for="client-name">Name</label><input id="client-name" name="name" required maxlength="160"><label for="client-email">Email address</label><input id="client-email" type="email" name="email" required maxlength="254"><p class="form-message" role="status"></p><button class="primary-button" type="submit">Create account <i data-lucide="user-plus"></i></button><div id="client-result" hidden><label for="temporary-password">Temporary password</label><input id="temporary-password" readonly><p class="secondary-meta">Share this with the client privately. It is shown only here; no email has been sent.</p></div></form></dialog>
+  <dialog id="password-dialog"><form id="password-form"><div class="dialog-heading"><h2>Change password</h2><button type="button" class="icon-button close-dialog" aria-label="Close"><i data-lucide="x"></i></button></div><label for="current-password">Current password</label><input id="current-password" type="password" name="currentPassword" autocomplete="current-password" required><label for="new-password">New password</label><input id="new-password" type="password" name="newPassword" autocomplete="new-password" minlength="12" maxlength="256" required><p class="secondary-meta">At least 12 characters.</p><p class="form-message" role="status"></p><button class="primary-button" type="submit">Update password <i data-lucide="arrow-right"></i></button></form></dialog>
+  <script type="module" src="./main.js"></script>
+</body></html>

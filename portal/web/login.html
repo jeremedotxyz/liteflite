@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#224455"><title>Client Login | lite flite</title></head>
+<body class="login-page">
+  <header class="login-header"><a class="portal-brand" href="/index.html" aria-label="lite flite home"><img src="/lite-flite-logo.png" alt="lite flite"></a><a class="back-link" href="/index.html"><i data-lucide="arrow-left"></i> Back to website</a></header>
+  <main class="login-main">
+    <section class="login-copy"><span class="eyebrow">LITE FLITE / CLIENT PORTAL</span><h1>Your projects.<br>A clearer view.</h1><p>Models, scans, and project deliveries.<br>All in one place.</p><div class="login-footnote"><span class="accent-rule"></span><span>LiDAR / Light / Further</span></div></section>
+    <section class="login-form-area" aria-labelledby="sign-in-title">
+      <div class="form-heading"><i data-lucide="lock-keyhole"></i><span>CLIENT ACCESS</span></div><h2 id="sign-in-title">Welcome back.</h2><p class="muted">Sign in to your lite flite account.</p>
+      <form id="login-form">
+        <label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="username" placeholder="you@company.com" required maxlength="254">
+        <label for="password">Password</label><div class="password-field"><input id="password" name="password" type="password" autocomplete="current-password" required maxlength="256"><button id="show-password" type="button" class="icon-button" aria-label="Show password" title="Show password"><i data-lucide="eye"></i></button></div>
+        <p id="login-message" class="form-message" role="status" aria-live="polite"></p>
+        <button id="sign-in" class="primary-button" type="submit"><span>Sign in</span><i data-lucide="arrow-right"></i></button>
+      </form>
+      <p class="account-help">Account access is provided by lite flite. Contact your project lead if you need help signing in.</p>
+    </section>
+  </main>
+  <footer class="login-footer"><span>lite flite client portal</span><span>Private project access</span></footer>
+  <script type="module" src="./login.js"></script>
+</body></html>
