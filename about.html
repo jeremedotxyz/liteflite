@@ -60,8 +60,7 @@
         .nav-links { gap: 10px; }
         .nav-links a { font-size: 12px; }
         .header-inner .brand { width: 120px; }
-        .header-inner .home-button { width: 36px; padding: 0; margin-right: 12px; }
-        .header-inner .home-button-label { display: none; }
+        .header-inner .home-button { width: auto; min-width: 44px; padding: 0; margin-right: 12px; }
       }
       .menu-toggle { display: none; align-items: center; justify-content: center; width: 48px; height: 48px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 2px; }
       .menu-close { display: none; }
@@ -312,13 +311,11 @@
         .inner-hero { height: max(360px, calc(100svh - 168px)); }
       }
 
-      .home-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; margin-left: auto; margin-right: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 2px; color: var(--ink); font-size: 14px; font-weight: 500; }
-      .home-button .icon { width: 18px; height: 18px; }
-      .home-button:hover { background: var(--ink); color: var(--bg-deep); border-color: var(--ink); }
+      .home-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin-left: auto; margin-right: 36px; padding: 0; border: 0; color: var(--ink); font-size: 14px; font-weight: 500; }
+      .home-button:hover { color: var(--white); text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 8px; }
       .nav-links a.mobile-home { display: none; }
       @media (max-width: 680px) {
         .home-button { width: 44px; padding: 0; margin-right: 12px; flex-shrink: 0; }
-        .home-button-label { display: none; }
         .nav-links a.mobile-home { display: flex; }
       }
     </style>
@@ -359,7 +356,6 @@
           <img src="./lite-flite-logo.png" alt="lite flite - LiDAR, Light, Further" width="1536" height="1024">
         </a>
         <a class="home-button" href="./index.html" aria-label="Return to home page" title="Home">
-          <svg class="icon" aria-hidden="true"><use href="#home"/></svg>
           <span class="home-button-label">Home</span>
         </a>
         <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation">
