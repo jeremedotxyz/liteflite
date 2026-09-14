@@ -51,13 +51,13 @@
       /* Window the supplied logo's empty margins without altering its artwork. */
       .brand { display: block; position: relative; width: 188px; height: 100px; overflow: hidden; flex-shrink: 0; }
       .brand img { position: absolute; width: 282px; max-width: none; height: 188px; left: -48px; top: -44px; mix-blend-mode: lighten; }
-      .nav-links { display: flex; align-items: center; gap: 44px; }
+      .nav-links { display: flex; align-items: center; gap: 28px; }
       .nav-links a { position: relative; display: flex; min-height: 48px; align-items: center; font-size: 15px; font-weight: 500; }
       .nav-links a::after { position: absolute; bottom: 7px; left: 0; width: 100%; height: 2px; background: var(--orange); content: ""; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
       .nav-links a:hover::after { transform: scaleX(1); }
       .nav-links .client-login { color: var(--orange); }
       @media (min-width: 681px) and (max-width: 980px) {
-        .nav-links { gap: 20px; }
+        .nav-links { gap: 14px; }
         .nav-links a { font-size: 13px; }
         .header-inner .brand { width: 140px; }
         .header-inner .home-button { width: 44px; padding: 0; margin-right: 18px; }
@@ -356,6 +356,7 @@
           <a href="./services.html" aria-current="page">Services</a>
           <a href="#pricing">Pricing</a>
           <a href="./about.html">About</a>
+          <a href="./news.html">News</a>
           <a href="https://liteflite.onrender.com/portal/login.html" class="client-login">Client Login</a>
         </div>
       </nav>
@@ -481,7 +482,7 @@
     <footer class="site-footer">
       <div class="footer-inner wrap">
         <a class="footer-brand" href="./index.html" aria-label="lite flite home">lite flite</a>
-        <nav class="footer-nav" aria-label="Footer navigation"><a href="./index.html">Home</a><a href="./services.html" aria-current="page">Services</a><a href="#pricing">Pricing</a><a href="./about.html">About</a></nav>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="./index.html">Home</a><a href="./services.html" aria-current="page">Services</a><a href="#pricing">Pricing</a><a href="./about.html">About</a><a href="./news.html">News</a></nav>
         <p class="copyright">&copy; <span id="copyright-year">2026</span> lite flite</p>
       </div>
     </footer>
