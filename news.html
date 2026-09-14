@@ -1,1 +1,578 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#224455">
+    <meta name="description" content="lite flite coverage news: California, Oregon, and Washington in 2026; Arizona, New Mexico, Colorado, and Texas in 2027.">
+    <title>News | lite flite</title>
+    <link rel="preload" as="image" href="./lite-flite-logo.png">
+    <style>
+      :root {
+        --bg: #224455;
+        --bg-deep: #173443;
+        --ink: #d7edf8;
+        --muted: rgba(215, 237, 248, .72);
+        --orange: #ff6a20;
+        --white: #ffffff;
+        --line: rgba(215, 237, 248, .23);
+        --gutter: 56px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; scroll-padding-top: 28px; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        letter-spacing: 0;
+      }
+      h1, h2, h3, p, figure { margin: 0; }
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; }
+      button, a { -webkit-tap-highlight-color: transparent; }
+      button { cursor: pointer; }
+      button:disabled { cursor: default; opacity: .5; }
+      a:focus-visible, button:focus-visible {
+        outline: 2px solid var(--orange);
+        outline-offset: 6px;
+      }
+      ::selection { background: var(--orange); color: var(--bg-deep); }
+      .wrap { width: min(100% - var(--gutter) * 2, 1440px); margin-inline: auto; }
+      .icon { width: 22px; height: 22px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+      .icon-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+      .skip-link { position: fixed; top: 12px; left: 12px; z-index: 20; padding: 14px 20px; background: var(--ink); color: var(--bg-deep); transform: translateY(-160%); }
+      .skip-link:focus { transform: translateY(0); }
+
+      .site-header { position: relative; z-index: 5; background: var(--bg); }
+      .header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 116px; }
+      /* Window the supplied logo's empty margins without altering its artwork. */
+      .brand { display: block; position: relative; width: 188px; height: 100px; overflow: hidden; flex-shrink: 0; }
+      .brand img { position: absolute; width: 282px; max-width: none; height: 188px; left: -48px; top: -44px; mix-blend-mode: lighten; }
+      .nav-links { display: flex; align-items: center; gap: 28px; }
+      .nav-links a { position: relative; display: flex; min-height: 48px; align-items: center; font-size: 15px; font-weight: 500; }
+      .nav-links a::after { position: absolute; bottom: 7px; left: 0; width: 100%; height: 2px; background: var(--orange); content: ""; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+      .nav-links a:hover::after { transform: scaleX(1); }
+      .nav-links .client-login { color: var(--orange); }
+      @media (min-width: 681px) and (max-width: 980px) {
+        .nav-links { gap: 14px; }
+        .nav-links a { font-size: 13px; }
+        .header-inner .brand { width: 140px; }
+        .header-inner .home-button { width: 44px; padding: 0; margin-right: 18px; }
+        .header-inner .home-button-label { display: none; }
+      }
+      .menu-toggle { display: none; align-items: center; justify-content: center; width: 48px; height: 48px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 2px; }
+      .menu-close { display: none; }
+
+      .hero { position: relative; isolation: isolate; height: clamp(560px, calc(100svh - 218px), 760px); background: var(--bg-deep); color: var(--white); }
+      .hero-video { position: absolute; z-index: -3; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 48%; }
+      .hero::before { content: ""; position: absolute; z-index: -2; inset: 0; background: linear-gradient(180deg, rgba(23, 52, 67, .02) 24%, rgba(13, 30, 38, .18) 40%, rgba(13, 30, 38, .86) 100%); pointer-events: none; }
+      .hero-inner { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding-block: 48px 30px; }
+      .hero-content { display: grid; grid-template-columns: minmax(0, 1fr) 290px; align-items: end; gap: 40px; padding-bottom: 40px; }
+      h1 { font-size: 72px; font-weight: 500; line-height: 1.055; max-width: 900px; }
+      h1 span { display: block; }
+      .hero-description { padding-bottom: 3px; }
+      .hero-description p { font-size: 17px; font-weight: 400; line-height: 1.6; color: var(--white); }
+      .primary-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 26px; min-height: 52px; padding: 0 20px; background: var(--orange); color: var(--bg-deep); border: 1px solid var(--orange); border-radius: 2px; font-size: 15px; font-weight: 600; transition: background .2s, color .2s; }
+      .primary-link:hover { background: var(--ink); border-color: var(--ink); }
+      .hero-description .primary-link { margin-top: 23px; }
+      .hero-footer { min-height: 47px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid rgba(255, 255, 255, .35); padding-top: 15px; }
+      .footage-caption { color: rgba(255, 255, 255, .86); font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 11px; line-height: 1.5; }
+      .footage-caption span { color: var(--orange); padding-right: 14px; }
+      .video-control { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border: 1px solid rgba(255, 255, 255, .45); background: rgba(23, 52, 67, .35); color: var(--white); border-radius: 50%; }
+      .video-control .icon { width: 13px; height: 13px; stroke-width: 1.8; }
+      .video-control::before { content: attr(aria-label); position: absolute; right: 0; bottom: calc(100% + 10px); width: max-content; padding: 7px 10px; color: var(--ink); background: var(--bg-deep); font-size: 12px; opacity: 0; pointer-events: none; transition: opacity .15s; }
+      .video-control:hover::before, .video-control:focus-visible::before { opacity: 1; }
+
+      .service-strip { background: var(--bg); border-bottom: 1px solid var(--line); }
+      .service-strip-inner { min-height: 102px; display: grid; grid-template-columns: 1.1fr repeat(3, 1fr); align-items: center; }
+      .service-strip a { display: flex; align-items: center; justify-content: space-between; min-height: 52px; gap: 16px; padding: 0 26px; border-left: 1px solid var(--line); font-size: 14px; line-height: 1.4; }
+      .service-strip a:first-child { padding-left: 0; border-left: 0; }
+      .service-strip a:last-child { padding-right: 0; }
+      .service-strip .icon { width: 18px; height: 18px; color: var(--orange); transition: transform .2s; }
+      .service-strip a:hover .icon { transform: translate(2px, -2px); }
+
+      .services { background: var(--ink); color: var(--bg-deep); padding-block: 100px 96px; }
+      .section-heading { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: start; margin-bottom: 54px; }
+      .section-label { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12px; line-height: 1.6; font-weight: 400; }
+      .section-label .number { display: inline-block; margin-right: 20px; color: var(--bg); opacity: .65; }
+      .section-heading h2 { max-width: 780px; font-size: 48px; line-height: 1.1; font-weight: 400; }
+      .service-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(23, 52, 67, .32); }
+      .service-list li { border-bottom: 1px solid rgba(23, 52, 67, .25); }
+      .service-row { display: grid; grid-template-columns: 70px minmax(0, 1.15fr) minmax(0, 1fr) 40px; gap: 26px; align-items: center; padding-block: 29px; transition: background .2s; }
+      .service-row:hover { background: rgba(255, 255, 255, .24); }
+      .service-number { align-self: start; padding-top: 6px; color: var(--bg); font-size: 12px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .service-row h3 { font-size: 27px; line-height: 1.2; font-weight: 500; }
+      .service-row p { max-width: 400px; font-size: 15px; line-height: 1.65; color: var(--bg); }
+      .service-arrow { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid rgba(23, 52, 67, .27); border-radius: 50%; transition: background .2s, border-color .2s; }
+      .service-row:hover .service-arrow { background: var(--orange); border-color: var(--orange); }
+      .services-bottom { display: flex; justify-content: flex-end; margin-top: 28px; }
+      .text-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 36px; min-height: 44px; font-size: 14px; font-weight: 500; border-bottom: 1px solid currentColor; }
+      .text-link:hover .icon { transform: translateX(3px); }
+      .text-link .icon { transition: transform .2s; }
+
+      .approach { padding-block: 86px; background: var(--bg); }
+      .approach-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; }
+      .approach .number { color: var(--orange); opacity: 1; }
+      .approach h2 { max-width: 700px; color: var(--ink); font-size: 42px; font-weight: 400; line-height: 1.15; }
+      .approach-details { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; margin-top: 30px; }
+      .approach-details p { max-width: 440px; font-size: 16px; line-height: 1.75; color: var(--muted); }
+      .approach-details .text-link { align-self: end; justify-self: end; color: var(--ink); }
+
+      .project-band { background: var(--orange); color: var(--bg-deep); padding-block: 44px; }
+      .project-inner { display: flex; align-items: center; justify-content: space-between; gap: 36px; }
+      .project-inner h2 { font-size: 34px; line-height: 1.2; font-weight: 500; }
+      .project-inner .text-link { flex-shrink: 0; gap: 48px; }
+      .site-footer { background: var(--bg-deep); padding-block: 30px; }
+      .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+      .footer-brand { font-size: 21px; font-weight: 600; }
+      .footer-nav { display: flex; flex-wrap: wrap; gap: 28px; }
+      .footer-nav a, .copyright { font-size: 12px; color: var(--muted); line-height: 1.5; }
+      .footer-nav a:hover { color: var(--white); text-decoration: underline; text-underline-offset: 5px; }
+
+      @media (min-width: 1600px) {
+        h1 { font-size: 84px; }
+        .hero-content { grid-template-columns: minmax(0, 1fr) 320px; gap: 60px; }
+      }
+      @media (max-width: 1199px) {
+        :root { --gutter: 36px; }
+        h1 { font-size: 60px; }
+        .hero-content { grid-template-columns: minmax(0, 1fr) 260px; gap: 28px; }
+        .hero-description p { font-size: 16px; }
+        .service-strip a { padding-inline: 18px; font-size: 13px; }
+        .section-heading h2 { font-size: 42px; }
+        .service-row { grid-template-columns: 40px minmax(0, 1.15fr) minmax(0, 1fr) 40px; gap: 22px; }
+        .service-row h3 { font-size: 24px; }
+        .approach-details { gap: 36px; }
+      }
+      @media (max-width: 980px) {
+        .hero { height: clamp(600px, calc(100svh - 218px), 760px); }
+        .hero-content { grid-template-columns: 1fr; gap: 24px; padding-bottom: 30px; }
+        h1 { font-size: 64px; max-width: 800px; }
+        .hero-description { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+        .hero-description p { max-width: 410px; }
+        .hero-description .primary-link { margin-top: 0; flex-shrink: 0; }
+        .section-heading, .approach-inner { grid-template-columns: 1fr; gap: 26px; }
+        .service-strip a { padding-inline: 12px; gap: 10px; }
+        .service-strip-inner { grid-template-columns: repeat(4, 1fr); }
+        .services { padding-block: 74px; }
+        .approach { padding-block: 72px; }
+      }
+      @media (max-width: 680px) {
+        :root { --gutter: 24px; }
+        html { scroll-padding-top: 20px; }
+        .header-inner { min-height: 94px; }
+        .brand { width: 155px; height: 82px; }
+        .brand img { width: 235px; height: auto; left: -40px; top: -36px; }
+        .menu-toggle { display: flex; }
+        .nav-links { position: absolute; top: 100%; left: 0; right: 0; display: flex; visibility: hidden; flex-direction: column; align-items: stretch; gap: 0; padding: 12px var(--gutter) 24px; background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+        .nav-links a { min-height: 56px; font-size: 19px; border-bottom: 1px solid var(--line); }
+        .nav-links a::after { display: none; }
+        .nav-links[data-open="true"] { visibility: visible; }
+        .menu-toggle[aria-expanded="true"] .menu-open { display: none; }
+        .menu-toggle[aria-expanded="true"] .menu-close { display: block; }
+        .hero { height: max(570px, calc(100svh - 212px)); max-height: 700px; }
+        .hero-video { object-position: 54% center; }
+        .hero::before { background: linear-gradient(180deg, rgba(13, 30, 38, .03) 8%, rgba(13, 30, 38, .4) 43%, rgba(13, 30, 38, .88) 100%); }
+        .hero-inner { padding-block: 34px 18px; }
+        .hero-content { gap: 22px; padding-bottom: 30px; }
+        h1 { font-size: 46px; line-height: 1.06; max-width: 500px; }
+        .hero-description { display: block; }
+        .hero-description p { max-width: 380px; font-size: 15px; line-height: 1.6; }
+        .hero-description .primary-link { margin-top: 20px; }
+        .hero-footer { gap: 12px; padding-top: 14px; }
+        .footage-caption { font-size: 10px; max-width: 240px; }
+        .footage-caption span { padding-right: 8px; }
+        .service-strip-inner { grid-template-columns: 1fr 1fr; min-height: 118px; padding-block: 8px; }
+        .service-strip a { min-height: 48px; padding-inline: 0 17px; font-size: 12px; }
+        .service-strip a:nth-child(2n) { padding-inline: 17px 0; border-left: 1px solid var(--line); }
+        .service-strip a:nth-child(3) { border-left: 0; }
+        .service-strip .icon { width: 16px; height: 16px; }
+        .services { padding-block: 56px; }
+        .section-heading { gap: 24px; margin-bottom: 34px; }
+        .section-heading h2 { font-size: 34px; max-width: 420px; }
+        .section-label { font-size: 11px; }
+        .service-row { position: relative; grid-template-columns: 26px minmax(0, 1fr) 30px; align-items: start; column-gap: 12px; row-gap: 12px; padding-block: 24px; }
+        .service-row h3 { font-size: 22px; line-height: 1.2; }
+        .service-row p { grid-column: 2; font-size: 14px; line-height: 1.6; }
+        .service-number { padding-top: 3px; font-size: 10px; }
+        .service-arrow { grid-column: 3; grid-row: 1; width: 30px; height: 30px; }
+        .service-arrow .icon { width: 17px; height: 17px; }
+        .services-bottom { justify-content: flex-start; }
+        .approach { padding-block: 56px; }
+        .approach-inner { gap: 24px; }
+        .approach h2 { font-size: 34px; }
+        .approach-details { grid-template-columns: 1fr; gap: 24px; margin-top: 24px; }
+        .approach-details p { font-size: 15px; }
+        .approach-details .text-link { justify-self: start; }
+        .project-band { padding-block: 36px; }
+        .project-inner { align-items: flex-start; flex-direction: column; gap: 20px; }
+        .project-inner h2 { max-width: 330px; font-size: 30px; }
+        .footer-inner { align-items: flex-start; gap: 22px; }
+        .footer-nav { gap: 22px; }
+        .copyright { width: 100%; }
+      }
+      @media (max-width: 359px) {
+        :root { --gutter: 18px; }
+        h1 { font-size: 40px; }
+        .service-row h3 { font-size: 20px; }
+      }
+      @media (max-width: 680px) and (max-height: 740px) {
+        .hero { height: calc(100svh - 150px); min-height: 412px; }
+        .hero-inner { padding-block: 22px 14px; }
+        h1 { font-size: 38px; }
+        .hero-content { gap: 16px; padding-bottom: 18px; }
+        .hero-description .primary-link { margin-top: 14px; min-height: 48px; }
+        .hero-footer { padding-top: 10px; }
+      }
+      @media (min-width: 681px) and (max-height: 740px) {
+        .hero { height: max(360px, calc(100svh - 168px)); }
+        .hero-inner { padding-block: 30px 18px; }
+        .hero-content { gap: 22px; padding-bottom: 24px; }
+        h1 { font-size: 54px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { transition: none !important; }
+      }
+
+      .nav-links a[aria-current="page"] { color: var(--white); }
+      .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+      .inner-hero { height: clamp(440px, calc(100svh - 290px), 600px); }
+      .principle-strip .service-strip-inner { grid-template-columns: repeat(3, 1fr); }
+      .about-story { padding-block: 88px 96px; background: var(--ink); color: var(--bg-deep); }
+      .story-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); grid-template-areas: "label content"; align-items: start; gap: 48px; }
+      .story-layout > .section-label { grid-area: label; }
+      .story-copy { grid-area: content; min-width: 0; }
+      .story-copy h2 { max-width: 760px; font-size: 48px; line-height: 1.12; font-weight: 400; }
+      .story-paragraphs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px; margin-top: 30px; }
+      .story-paragraphs p { color: var(--bg); font-size: 16px; line-height: 1.8; }
+      .principles { margin-top: 80px; padding-top: 30px; border-top: 1px solid rgba(23, 52, 67, .32); }
+      .principles-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 28px; margin-bottom: 36px; }
+      .principles-heading h2 { font-size: 32px; line-height: 1.2; font-weight: 400; }
+      .principle-list { list-style: none; margin: 0; padding: 0; }
+      .principle-row { display: grid; grid-template-columns: 70px minmax(0, 1.1fr) minmax(0, 1.3fr); gap: 30px; padding-block: 32px; border-top: 1px solid rgba(23, 52, 67, .25); scroll-margin-top: 28px; }
+      .principle-row:last-child { border-bottom: 1px solid rgba(23, 52, 67, .25); }
+      .principle-number { padding-top: 7px; color: var(--bg); font: 12px/1.5 "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .principle-row h3 { font-size: 30px; line-height: 1.2; font-weight: 500; }
+      .principle-row p { max-width: 620px; color: var(--bg); font-size: 16px; line-height: 1.75; }
+      .statement-section { padding-block: 76px; background: var(--bg); }
+      .statement-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; }
+      .statement-layout .number { color: var(--orange); opacity: 1; }
+      .statement-copy h2 { max-width: 760px; font-size: 42px; line-height: 1.2; font-weight: 400; }
+      .statement-copy .text-link { margin-top: 30px; }
+      .founders { padding-block: 76px; background: var(--ink); color: var(--bg-deep); }
+      .founder-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; margin: 0; padding: 0; list-style: none; }
+      .founder-list li { padding-top: 26px; border-top: 1px solid rgba(23, 52, 67, .25); }
+      .founder-name { margin: 0; font-size: 32px; line-height: 1.2; font-weight: 500; }
+      .founder-role { margin-top: 12px; color: var(--bg); font-size: 14px; line-height: 1.6; }
+      @media (max-width: 680px) {
+        .founders { padding-block: 56px; }
+        .founder-list { grid-template-columns: 1fr; gap: 28px; }
+        .founder-list li { padding-top: 22px; }
+        .founder-name { font-size: 28px; }
+      }
+      @media (max-width: 1199px) {
+        .story-copy h2 { font-size: 42px; }
+        .story-paragraphs { gap: 28px; }
+        .principle-row { grid-template-columns: 40px minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px; }
+      }
+      @media (max-width: 980px) {
+        .story-layout, .statement-layout { grid-template-columns: 1fr; gap: 26px; }
+        .story-layout { grid-template-areas: "label" "content"; }
+        .about-story { padding-block: 72px; }
+      }
+      @media (max-width: 680px) {
+        .nav-links a[aria-current="page"] { color: var(--orange); }
+        .inner-hero { height: clamp(460px, calc(100svh - 226px), 600px); }
+        .principle-strip .service-strip-inner { grid-template-columns: repeat(3, minmax(0, 1fr)); min-height: 76px; padding-block: 10px; }
+        .principle-strip .service-strip-inner a { min-height: 48px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px; padding-inline: 13px; border-left: 1px solid var(--line); font-size: 11px; }
+        .principle-strip .service-strip-inner a:first-child { padding-left: 0; border-left: 0; }
+        .principle-strip .service-strip-inner a:last-child { padding-right: 0; }
+        .about-story { padding-block: 56px; }
+        .story-copy h2 { font-size: 34px; }
+        .story-paragraphs { grid-template-columns: 1fr; gap: 18px; margin-top: 24px; }
+        .story-paragraphs p { font-size: 15px; }
+        .principles { margin-top: 48px; padding-top: 24px; }
+        .principles-heading { align-items: flex-start; flex-direction: column; gap: 18px; margin-bottom: 24px; }
+        .principles-heading h2 { font-size: 28px; }
+        .principle-row { grid-template-columns: 26px minmax(0, 1fr); gap: 14px 12px; padding-block: 26px; }
+        .principle-number { font-size: 10px; padding-top: 5px; }
+        .principle-row h3 { font-size: 26px; }
+        .principle-row p { grid-column: 2; font-size: 15px; line-height: 1.7; }
+        .statement-section { padding-block: 56px; }
+        .statement-copy h2 { font-size: 32px; }
+      }
+      @media (max-width: 680px) and (max-height: 740px) {
+        .inner-hero { height: max(398px, calc(100svh - 150px)); }
+      }
+      @media (min-width: 681px) and (max-height: 740px) {
+        .inner-hero { height: max(360px, calc(100svh - 168px)); }
+      }
+
+      .home-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; margin-left: auto; margin-right: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 2px; color: var(--ink); font-size: 14px; font-weight: 500; }
+      .home-button .icon { width: 18px; height: 18px; }
+      .home-button:hover { background: var(--ink); color: var(--bg-deep); border-color: var(--ink); }
+      .nav-links a.mobile-home { display: none; }
+      @media (max-width: 680px) {
+        .home-button { width: 44px; padding: 0; margin-right: 12px; flex-shrink: 0; }
+        .home-button-label { display: none; }
+        .nav-links a.mobile-home { display: flex; }
+      }
+    .news-heading{padding:44px 0 46px;border-top:1px solid var(--line)}
+.news-heading-inner{display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
+.news-heading h1{font-size:68px;font-weight:400;margin-top:18px;line-height:1}
+.news-deck{font-size:19px;line-height:1.6;color:var(--muted);max-width:400px}
+.coverage-section{background:var(--ink);color:var(--bg-deep);padding:52px 0 38px}
+.coverage-heading{display:flex;justify-content:space-between;gap:32px;align-items:flex-end;margin-bottom:30px}
+.coverage-heading h2{font-size:42px;font-weight:400;line-height:1.12;margin-top:17px}
+.coverage-heading-right{max-width:360px}
+.coverage-heading-right>p{font-size:15px;line-height:1.6;color:var(--bg)}
+.year-controls{display:flex;gap:24px;margin-top:20px;border-bottom:1px solid #22445540}
+.year-controls button{background:none;color:var(--bg);border:0;border-bottom:3px solid transparent;padding:12px 0;font-size:13px;min-height:44px}
+.year-controls button[aria-pressed=true]{border-bottom-color:var(--orange);color:var(--bg-deep);font-weight:600}
+.coverage-layout{display:grid;grid-template-columns:minmax(0,2.5fr) minmax(230px,1fr);gap:48px;align-items:center}
+.coverage-map-wrap{min-width:0}
+.coverage-map{display:block;width:100%;height:auto;aspect-ratio:860/650;overflow:visible;touch-action:none}
+.map-state{outline:none;cursor:pointer}
+.state-shape{stroke:var(--ink);stroke-width:1.7;stroke-linejoin:round;vector-effect:non-scaling-stroke;transition:fill .16s,opacity .16s;fill:#b5cbd4}
+.map-state[data-coverage="2026"] .state-shape{fill:#608b9d}
+.map-state[data-coverage="2027"] .state-shape{fill:#224455}
+.map-state text{font:500 17px "Helvetica Neue",Helvetica,Arial,sans-serif;fill:#173443;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.map-state[data-coverage="2026"] text,.map-state[data-coverage="2027"] text{fill:#fff}
+.map-state.is-dimmed{opacity:.24}
+.map-state.is-active{opacity:1}
+.map-state.is-active .state-shape,.map-state:focus-visible .state-shape{fill:var(--orange);stroke:var(--bg-deep);stroke-width:2}
+.map-state.is-active text,.map-state:focus-visible text{fill:var(--bg-deep)}
+.map-state:focus-visible{outline:none}.map-state:focus-visible .state-shape{stroke-width:3;stroke-dasharray:4 2}
+.ocean-label{font:italic 14px Georgia,serif;fill:#22445577;text-anchor:middle;letter-spacing:0}
+.map-legend{display:flex;flex-wrap:wrap;gap:22px;border-top:1px solid #22445540;padding:18px 0;font-size:11px;color:var(--bg)}
+.map-legend>span{display:flex;align-items:center;gap:8px}.swatch{display:block;width:10px;height:10px;flex-shrink:0}.swatch.year-2026{background:#608b9d}.swatch.year-2027{background:#224455}.swatch.unannounced{background:#b5cbd4}
+.coverage-detail{border-left:1px solid #22445540;padding:28px 0 28px 36px;min-height:350px}
+#state-abbreviation{font-size:64px;line-height:1;color:#22445535;margin-top:24px}
+.coverage-detail h3{font-size:29px;line-height:1.2;font-weight:500;margin-top:16px;overflow-wrap:anywhere}
+.coverage-date{font:14px monospace;margin:14px 0 22px;color:var(--bg)}
+#state-description{font-size:15px;line-height:1.8;min-height:108px;max-width:290px;color:var(--bg)}
+.coverage-detail .text-link{margin-top:22px;font-size:13px;gap:20px}
+.coverage-schedule{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:44px;padding-top:40px;border-top:1px solid #22445540}
+.schedule-heading{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;gap:16px}.schedule-heading h3{font-size:38px;font-weight:400}
+.coverage-schedule ul{list-style:none;margin:0;padding:0}.coverage-schedule li{border-top:1px solid #22445530}.coverage-schedule li:last-child{border-bottom:1px solid #22445530}
+.coverage-schedule button{display:flex;justify-content:space-between;width:100%;padding:17px 0;min-height:52px;border:0;color:var(--bg-deep);background:none;text-align:left;font-size:17px}.coverage-schedule button span{font:12px monospace;color:#22445599}.coverage-schedule button:hover,.coverage-schedule button[aria-pressed=true]{color:#a83b07}
+.map-credit{margin-top:35px;font-size:10px;line-height:1.7;color:#224455aa}.map-credit a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:980px){.coverage-layout{gap:24px;grid-template-columns:minmax(0,2fr) minmax(200px,1fr)}.coverage-detail{padding-left:24px}.coverage-heading h2{font-size:36px}.coverage-schedule{gap:40px}}
+@media(max-width:680px){.news-heading{padding:28px 0 30px}.news-heading-inner{align-items:start;gap:24px}.news-heading h1{font-size:46px;margin-top:12px}.news-deck{font-size:13px;max-width:155px;align-self:end}.news-heading .section-label{font-size:9px}.coverage-section{padding-top:34px}.coverage-heading{display:block;margin-bottom:18px}.coverage-heading h2{font-size:34px}.coverage-heading-right{margin-top:18px;max-width:none}.coverage-heading-right>p{font-size:13px}.year-controls{margin-top:12px;gap:30px}.coverage-layout{display:flex;flex-direction:column;gap:12px;align-items:stretch}.coverage-map-wrap{width:100%}.coverage-map{aspect-ratio:860/650}.map-state text{font-size:24px}.ocean-label{font-size:18px}.map-legend{font-size:10px;gap:17px;padding:14px 0}.coverage-detail{border-left:0;border-top:1px solid #22445540;padding:20px 0;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 90px;column-gap:18px}.coverage-detail>.section-label{grid-column:1}.coverage-detail h3{grid-column:1;font-size:27px;margin-top:12px}.coverage-date{grid-column:1;margin:10px 0 15px}#state-abbreviation{grid-column:2;grid-row:1/4;text-align:right;font-size:54px;margin:12px 0 0}#state-description{grid-column:1/-1;min-height:54px;max-width:none;font-size:14px}.coverage-detail .text-link{grid-column:1/-1;justify-self:start;margin-top:12px}.coverage-schedule{grid-template-columns:1fr;gap:35px;margin-top:16px;padding-top:30px}.schedule-heading h3{font-size:32px}.coverage-schedule button{font-size:16px}.map-credit{margin-top:28px}}
+
+    </style>
+    <noscript>
+      <style>
+        .video-control { display: none; }
+        @media (max-width: 680px) {
+          .header-inner { flex-wrap: wrap; padding-bottom: 14px; }
+          .menu-toggle { display: none; }
+          .nav-links { position: static; visibility: visible; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; width: 100%; gap: 14px; padding: 0; border: 0; }
+          .nav-links a { font-size: 12px; border: 0; }
+          .nav-links a.mobile-home { display: none; }
+          .brand { width: 132px; }
+          .home-button { margin-right: 0; }
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <!-- Icon paths from Lucide, ISC license. -->
+    <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <symbol id="home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+        <symbol id="arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+        <symbol id="arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+        <symbol id="menu" viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></symbol>
+        <symbol id="close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+        <symbol id="pause" viewBox="0 0 24 24"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></symbol>
+        <symbol id="play" viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></symbol>
+      </defs>
+    </svg>
+
+    <div class="page">
+    <header class="site-header">
+      <nav class="header-inner wrap" aria-label="Main navigation">
+        <a class="brand" href="./index.html" aria-label="lite flite home">
+          <img src="./lite-flite-logo.png" alt="lite flite - LiDAR, Light, Further" width="1536" height="1024">
+        </a>
+        <a class="home-button" href="./index.html" aria-label="Return to home page" title="Home">
+          <svg class="icon" aria-hidden="true"><use href="#home"/></svg>
+          <span class="home-button-label">Home</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation">
+          <svg class="icon menu-open" aria-hidden="true"><use href="#menu"/></svg>
+          <svg class="icon menu-close" aria-hidden="true"><use href="#close"/></svg>
+        </button>
+        <div class="nav-links" id="main-navigation">
+          <a class="mobile-home" href="./index.html">Home</a>
+          <a href="./services.html">Services</a>
+          <a href="./services.html#pricing">Pricing</a>
+          <a href="./about.html">About</a>
+          <a href="./news.html" aria-current="page">News</a>
+          <a href="https://liteflite.onrender.com/portal/login.html" class="client-login">Client Login</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="news-heading">
+        <div class="wrap news-heading-inner">
+          <div><p class="section-label">LITE FLITE / UPDATES</p><h1>News.</h1></div>
+          <p class="news-deck">Where we're headed.<br>Coverage across the West.</p>
+        </div>
+      </section>
+      <section class="coverage-section" aria-labelledby="coverage-title">
+        <div class="wrap">
+          <div class="coverage-heading">
+            <div><p class="section-label"><span class="number">01 /</span> COVERAGE UPDATE</p><h2 id="coverage-title">From the Pacific<br>to Texas.</h2></div>
+            <div class="coverage-heading-right"><p>Our regional coverage plan for 2026 and 2027.</p><div class="year-controls" role="group" aria-label="Coverage year"><button type="button" data-year="all" aria-pressed="true">All years</button><button type="button" data-year="2026" aria-pressed="false">2026</button><button type="button" data-year="2027" aria-pressed="false">2027</button></div></div>
+          </div>
+          <div class="coverage-layout">
+            <div class="coverage-map-wrap">
+              <svg class="coverage-map" viewBox="0 0 860 650" xmlns="http://www.w3.org/2000/svg" role="group" aria-labelledby="map-title map-description"><title id="map-title">Western United States coverage</title><desc id="map-description">California, Oregon, and Washington: 2026. Arizona, New Mexico, Colorado, and Texas: 2027. Idaho, Montana, Nevada, Utah, and Wyoming: coverage not announced.</desc><text class="ocean-label" x="92" y="410" transform="rotate(-65 92 410)" aria-hidden="true">Pacific Ocean</text><g class="map-state" data-state="04" data-name="Arizona" data-abbreviation="AZ" data-coverage="2027" tabindex="0" role="button" aria-pressed="false" aria-label="Arizona: 2027"><path class="state-shape" d="M287.51,427.13L288.2,426.81L289.61,427.18L291.41,426.97L291.48,426.17L292.94,425.15L293.34,423.71L292.8,420.66L291.22,420.45L289.94,419.89L289.49,418.37L290.34,417.04L290.9,414.47L290,413.51L290.89,412.27L290.58,411.17L292.53,410.98L292.79,410.34L294.36,408.84L295.11,408.49L295.59,405.51L296.31,405.22L296.38,401.58L296.98,401.22L296.66,399.54L298.98,397.74L299.73,395.96L301.68,395.6L303.1,395.02L305.27,393.4L305.88,392.43L305.36,391.22L304.5,390.65L302.82,388.28L301.88,387.91L302.32,386.26L301.68,384.63L301.87,384.22L301.45,381.65L300.17,380.1L299.84,378.37L299.12,377.32L299.74,374.32L300.61,372.73L299.99,372.08L301.35,371.57L301.68,370.8L301.93,366.92L301.74,364.84L301.17,362.79L302.18,360.05L301.7,358.97L301.69,357.51L302.07,356.51L301.99,355.28L302.49,354.2L303.15,353.85L302.29,352L302.7,350.04L302.5,348.57L302.94,348.24L305.27,348.08L306.19,347.74L307.31,347.98L307.34,348.5L309.85,348.67L310.76,350.5L310.54,350.86L311.73,352.15L313.35,352.24L315.64,348.88L316.1,348.64L317,344.05L318.1,337.84L319.65,329.8L328.66,331.52L347.36,334.89L368.04,338.38L384.84,340.98L385.37,341.21L400.93,343.52L411.65,345.02L406.3,383.53L404.39,397.48L399.41,433.24L397.9,444.33L393.15,478.21L374.29,475.49L365.18,474.12L353.01,472.23L319.93,453.11L315.19,450.39L284.66,431.98L285.27,430.73L285.31,429.14L286.32,428.56Z"/><text x="352.9" y="401.5" aria-hidden="true">AZ</text><title>Arizona / 2027</title></g>
+<g class="map-state" data-state="06" data-name="California" data-abbreviation="CA" data-coverage="2026" tabindex="0" role="button" aria-pressed="false" aria-label="California: 2026"><path class="state-shape" d="M217.04,393.13L218.14,393.49L219.76,394.99L221.11,395.84L221.82,397.75L221.33,398.53L220.51,397.82L218.81,397.27L218.54,396.45L218.9,395L217.64,394.37ZM214.5,403.42L215.1,403.49L216.2,406.45L218.16,409.4L216.66,409.56L215.59,408.06ZM204.56,376.58L205.8,376.96L205.67,377.55L204.51,377.34ZM197.41,393.13L198.41,393.23L199.95,395.01L198.99,395.08L197.78,394.33ZM195.68,373.14L197.42,374.18L198.63,374.4L199.71,375.58L200.95,375.98L201.63,375.33L202.91,376.03L201.93,376.73L199.95,376.47L198.7,376.8L195.96,375.59L196.22,374.39ZM189.07,373.28L190.61,373.52L193.11,373.49L192.9,374.45L194,375.01L193.86,375.98L190.8,376.33L190.05,375.56ZM185.51,371.47L187.35,371.08L188.17,372.51L187.08,372.43ZM170.74,170.59L178.77,173.06L185.13,174.9L188.55,175.66L190.2,176.3L197.06,178.24L201.38,179.37L207.66,181.28L223.77,185.97L236.35,189.32L241.19,190.54L234.54,216.32L232.38,224.91L229.12,237.42L224.64,254.22L223.38,259.43L235.29,277.32L242.23,287.82L257.94,311.43L274.03,335.69L286.82,354.92L299.74,374.32L299.12,377.32L299.84,378.37L300.17,380.1L301.45,381.65L301.87,384.22L301.68,384.63L302.32,386.26L301.88,387.91L302.82,388.28L304.5,390.65L305.36,391.22L305.88,392.43L305.27,393.4L303.1,395.02L301.68,395.6L299.73,395.96L298.98,397.74L296.66,399.54L296.98,401.22L296.38,401.58L296.31,405.22L295.59,405.51L295.11,408.49L294.36,408.84L292.79,410.34L292.53,410.98L290.58,411.17L290.89,412.27L290,413.51L290.9,414.47L290.34,417.04L289.49,418.37L289.94,419.89L291.22,420.45L292.8,420.66L293.34,423.71L292.94,425.15L291.48,426.17L291.41,426.97L289.61,427.18L288.2,426.81L287.51,427.13L240.2,421.53L240.41,419.32L239.63,417.64L238.58,417.88L239,414.72L238.71,414.2L239.55,413.12L239.71,409.8L239.39,407.07L237.12,401.38L235.69,399.77L235.03,398.3L233.81,397.54L232.93,395.36L231.45,393.78L230.58,393.25L229.45,391.8L228.18,389.66L226.62,388.47L226.36,389.39L224.83,389.5L222.16,387.92L222.01,387.09L222.82,386.56L223.06,385.73L222.66,383.2L221.69,380.84L220.84,380.29L217.48,379.7L216.17,380.14L215.42,379.15L213.9,378.55L211.39,376.59L210.62,376.36L209.26,374.89L208.86,372.18L207.38,370.18L206.99,370.11L206,368.49L204.39,367.13L202.3,366.53L201.49,366.83L200.01,365.91L198.48,365.73L196.28,363.9L193.88,362.96L190.84,362.33L187.57,361.94L187.28,360.01L185.13,358.02L186.63,355.69L186.35,354.05L187.39,352.19L187.06,350.67L186.64,350.48L188.35,347.07L188.56,345.21L187.14,343.87L186.63,344.18L185.07,342.63L184.57,341.48L185.6,339.8L186.04,338.04L185.6,336.81L183.92,336.07L182.66,333.56L182.01,331.25L180.08,329.77L179.79,328.73L179.9,327.04L178.17,324.04L178.15,321.2L177.08,320.38L176.57,317.95L175.5,315.66L173.99,314.28L173.06,311.96L173.33,310.45L173.28,307.88L173.93,306.22L173.39,305.5L174.56,304.56L174.98,305.48L176.49,304.54L178.09,301.36L177.57,298.06L176.64,296.65L175.73,296.99L173.35,296.28L171.92,294.44L170.81,291.59L170.26,291.41L170.08,289.99L169.55,289.27L169.66,288L170.69,285.56L170.43,283.58L170.57,282.52L169.69,281.25L171.12,277.58L171.43,275.33L173.52,275.18L173.59,277.08L173.1,277.62L172.77,279.26L172.93,280.42L174.54,281.37L175.77,283.41L176.3,283.47L176.86,284.95L177.67,285.11L176.81,283.62L176.7,281.59L176.93,279.69L175.79,278.03L176.08,277.33L174.7,276.19L175.64,274.88L175.62,273.44L174.49,273.01L174.11,271.59L175.32,271.56L175.48,270.88L176.71,271.15L177.6,270.57L177.31,268.99L175.94,267.65L173.98,267.97L173.28,269.96L173.93,271.01L173.06,271.25L172.6,272.01L173.43,273.43L172.41,272.82L172.44,274.35L171.42,274.38L171.06,273.47L169.72,271.78L168.83,271.79L167.79,270.07L167.42,268.84L166.54,267.87L165.57,267.42L164.69,268.15L164.11,267.7L165.73,265.47L166.27,264.36L165.99,262.56L166.47,261.84L165.94,260.63L165.19,260.62L165.49,259.27L165.03,256.89L163.32,254.89L162.25,253.22L161.01,249.1L158.64,245.2L157.78,243.16L157.8,242.25L159.1,240.97L159.29,240.13L158.9,234.52L159.13,232.35L159.85,230.64L161.41,228.47L161.41,227.18L161.87,225.35L161.5,224.27L161.87,221.67L161.12,220.67L161.06,219.5L159.96,216.59L159.32,215.99L159.31,214.15L158.18,213.14L156.09,209.25L156.73,208.11L156.84,206.2L156.54,204.99L157.57,203.29L159.15,201.36L162.63,197.73L164.56,195.33L165.68,193.13L165.16,192.34L165.69,190.28L167.17,188.58L169.35,184.03L169.78,181.48L169.73,176.69L169.27,176.65L168.51,175.25L170.04,173.11Z"/><text x="222.1" y="303.7" aria-hidden="true">CA</text><title>California / 2026</title></g>
+<g class="map-state" data-state="08" data-name="Colorado" data-abbreviation="CO" data-coverage="2027" tabindex="0" role="button" aria-pressed="false" aria-label="Colorado: 2027"><path class="state-shape" d="M424.58,250.75L433.72,252.01L449.49,253.97L470.01,256.36L474.14,256.92L482.77,257.85L498.03,259.31L501.2,259.54L512.13,260.49L521.9,261.29L533.68,262.17L547.33,263.09L545.81,286.78L544.04,316.42L542.98,333.25L542.38,343.65L541.44,358.24L529.24,357.37L523.6,356.85L498.76,354.99L486.48,353.88L484.26,353.61L464.22,351.6L451.84,350.26L451.72,350.06L440.54,348.74L426.34,346.99L411.65,345.02L412.86,336.16L413.44,332.5L415.51,317.56L415.53,314.9L416.99,304.43L418.46,294.89L422.94,262.53L423.38,259.73Z"/><text x="481.1" y="305.5" aria-hidden="true">CO</text><title>Colorado / 2027</title></g>
+<g class="map-state" data-state="16" data-name="Idaho" data-abbreviation="ID" data-coverage="" tabindex="0" role="button" aria-pressed="false" aria-label="Idaho: coverage not announced"><path class="state-shape" d="M313.94,110.8L313.78,108.27L314.72,106.74L314.37,103.74L313.5,102.27L314.18,100.48L318.08,83.18L322.02,65.44L324.25,56.07L327.5,41.8L342.54,45.06L337.54,68.4L337.81,68.55L339.2,71.96L339.93,72.79L339.95,74.29L341.25,75.89L340.85,76.81L341.31,78.32L340.21,79.05L340.84,79.84L340.81,80.85L341.43,81.57L339.64,81.65L342.3,84.4L342.46,85.55L344.09,86.83L345.38,87.29L346.19,89.98L346.95,90.6L348.16,92.9L348.43,94.77L349.18,94.86L350.07,96.29L349.51,97.62L350.21,98.98L351.64,99.98L351.63,101.94L352.9,101.15L354,102.16L353.53,102.74L353.78,103.73L356.11,104.38L356.91,103.85L357.96,103.85L358.5,104.49L357.38,107.59L356.52,107.65L356.69,109.02L355.7,110.16L355.61,111.37L355,112.67L354.39,112.77L354.36,115L353.23,114.93L352.93,115.89L353.79,116.73L353.04,117.78L353.15,119.03L354.04,120.17L353.51,120.55L353.97,121.92L353.48,122.56L352.04,122.29L350.6,123.85L351.36,125.24L351.2,126.49L350.08,126.96L350.3,127.8L349.9,128.83L351.34,129.1L351.84,130.43L352.94,131.86L354.27,131.25L354.71,130.13L355.57,130.52L356.59,130.22L358,128.81L358.89,128.47L359.07,127.44L359.65,127.28L360.81,128.95L362.11,130.2L361.3,132L362.42,132.21L361.83,133.67L362.37,135.28L362.05,136.83L362.57,138.64L363.68,140.36L363.82,141.88L364.76,142.38L364.56,142.87L365.53,143.86L365.23,146.19L364.35,146.3L364.64,148.34L366.07,149.7L366.15,150.56L367.87,149.96L369.55,151.47L369.79,153.32L370.21,153.83L370.2,155.23L369.62,155.58L370.56,157.57L370.12,158.19L370.3,159.33L372.01,160.96L372.54,161.96L373.14,161.59L372.95,160.48L374.11,159.2L375.21,158.93L376.1,159.53L377.91,159.87L378.66,160.53L379.18,160.21L380.46,161.2L381.26,159.4L382.62,158.69L383.33,158.82L384.16,159.8L385.39,160.31L386.71,159.92L387.54,160.3L389.46,159.97L390.05,161.38L391.94,160.87L392.19,160.51L393.64,161.03L394.16,160.78L395.47,161.54L396.04,161.35L395.31,159.97L396.41,158.7L396.36,157.68L397.56,157.8L398.05,156.88L399.11,157.72L400.36,160.35L400.18,161.33L401.36,162.6L401.55,163.64L402.7,164.29L396.26,205.23L395.39,210.31L393.51,222.1L385.59,220.87L374.17,219.02L373.85,218.85L344.71,213.89L342.2,213.27L332.72,211.4L328.79,210.43L325.33,209.88L320.53,208.9L302.59,205.09L291.45,202.54L300.85,160.75L301.2,159.6L301.88,159.53L302.17,158.45L303.47,156.17L303.09,154.53L303.89,154.36L304.77,153.28L304.5,152.27L303.76,151.97L303.97,151.08L302.7,150.94L302.05,149.61L300.82,149.82L300.17,148.73L300.91,147.99L300.36,146.38L300.97,145.77L301.12,144.43L302.54,143.6L302.84,142.77L305.03,139.43L307.4,138.59L309.84,135.53L309.65,134.38L310.04,133.41L311.06,132.73L312.53,131.13L314.39,127.15L316.38,124.66L317.02,124.33L317.36,123.25L319.27,121.13L318.55,119.39L318.62,117.73L318,116.93L316.87,116.59L316.55,115.61L315.46,115.45L314.33,112.78Z"/><text x="343.2" y="156.7" aria-hidden="true">ID</text><title>Idaho / Not announced</title></g>
+<g class="map-state" data-state="30" data-name="Montana" data-abbreviation="MT" data-coverage="" tabindex="0" role="button" aria-pressed="false" aria-label="Montana: coverage not announced"><path class="state-shape" d="M342.54,45.06L355.42,47.8L368.19,50.31L378.67,52.41L389.19,54.33L412.45,58.38L420.12,59.62L432.32,61.47L451.24,64.19L463,65.76L475.34,67.3L490.29,69.03L503.2,70.4L515.26,71.6L528.15,72.73L526.24,96.05L526.02,99.17L524.93,111.26L523.01,133.69L522.16,143.96L521.03,158.26L520.37,166.15L520.06,166.2L508.35,165.11L489.34,163.19L489.08,163.34L483.53,162.75L469.96,161.15L469.16,160.97L446.6,158.17L437,156.87L436.68,156.67L426.02,155.26L420.1,154.33L418.61,154.29L410.28,153.11L409,152.65L404.56,151.98L403.16,160.76L402.7,164.29L401.55,163.64L401.36,162.6L400.18,161.33L400.36,160.35L399.11,157.72L398.05,156.88L397.56,157.8L396.36,157.68L396.41,158.7L395.31,159.97L396.04,161.35L395.47,161.54L394.16,160.78L393.64,161.03L392.19,160.51L391.94,160.87L390.05,161.38L389.46,159.97L387.54,160.3L386.71,159.92L385.39,160.31L384.16,159.8L383.33,158.82L382.62,158.69L381.26,159.4L380.46,161.2L379.18,160.21L378.66,160.53L377.91,159.87L376.1,159.53L375.21,158.93L374.11,159.2L372.95,160.48L373.14,161.59L372.54,161.96L372.01,160.96L370.3,159.33L370.12,158.19L370.56,157.57L369.62,155.58L370.2,155.23L370.21,153.83L369.79,153.32L369.55,151.47L367.87,149.96L366.15,150.56L366.07,149.7L364.64,148.34L364.35,146.3L365.23,146.19L365.53,143.86L364.56,142.87L364.76,142.38L363.82,141.88L363.68,140.36L362.57,138.64L362.05,136.83L362.37,135.28L361.83,133.67L362.42,132.21L361.3,132L362.11,130.2L360.81,128.95L359.65,127.28L359.07,127.44L358.89,128.47L358,128.81L356.59,130.22L355.57,130.52L354.71,130.13L354.27,131.25L352.94,131.86L351.84,130.43L351.34,129.1L349.9,128.83L350.3,127.8L350.08,126.96L351.2,126.49L351.36,125.24L350.6,123.85L352.04,122.29L353.48,122.56L353.97,121.92L353.51,120.55L354.04,120.17L353.15,119.03L353.04,117.78L353.79,116.73L352.93,115.89L353.23,114.93L354.36,115L354.39,112.77L355,112.67L355.61,111.37L355.7,110.16L356.69,109.02L356.52,107.65L357.38,107.59L358.5,104.49L357.96,103.85L356.91,103.85L356.11,104.38L353.78,103.73L353.53,102.74L354,102.16L352.9,101.15L351.63,101.94L351.64,99.98L350.21,98.98L349.51,97.62L350.07,96.29L349.18,94.86L348.43,94.77L348.16,92.9L346.95,90.6L346.19,89.98L345.38,87.29L344.09,86.83L342.46,85.55L342.3,84.4L339.64,81.65L341.43,81.57L340.81,80.85L340.84,79.84L340.21,79.05L341.31,78.32L340.85,76.81L341.25,75.89L339.95,74.29L339.93,72.79L339.2,71.96L337.81,68.55L337.54,68.4Z"/><text x="434.8" y="108.0" aria-hidden="true">MT</text><title>Montana / Not announced</title></g>
+<g class="map-state" data-state="32" data-name="Nevada" data-abbreviation="NV" data-coverage="" tabindex="0" role="button" aria-pressed="false" aria-label="Nevada: coverage not announced"><path class="state-shape" d="M241.19,190.54L245.81,191.68L254.51,193.95L263.14,196.11L266.46,196.82L281.28,200.26L291.45,202.54L302.59,205.09L320.53,208.9L325.33,209.88L328.79,210.43L332.72,211.4L342.2,213.27L341.75,215.81L336.5,242.82L335.1,249.84L326.38,294.78L324.14,306.45L320.07,327.38L319.65,329.8L318.1,337.84L317,344.05L316.1,348.64L315.64,348.88L313.35,352.24L311.73,352.15L310.54,350.86L310.76,350.5L309.85,348.67L307.34,348.5L307.31,347.98L306.19,347.74L305.27,348.08L302.94,348.24L302.5,348.57L302.7,350.04L302.29,352L303.15,353.85L302.49,354.2L301.99,355.28L302.07,356.51L301.69,357.51L301.7,358.97L302.18,360.05L301.17,362.79L301.74,364.84L301.93,366.92L301.68,370.8L301.35,371.57L299.99,372.08L300.61,372.73L299.74,374.32L286.82,354.92L274.03,335.69L257.94,311.43L242.23,287.82L235.29,277.32L223.38,259.43L224.64,254.22L229.12,237.42L232.38,224.91L234.54,216.32Z"/><text x="284.5" y="266.0" aria-hidden="true">NV</text><title>Nevada / Not announced</title></g>
+<g class="map-state" data-state="35" data-name="New Mexico" data-abbreviation="NM" data-coverage="2027" tabindex="0" role="button" aria-pressed="false" aria-label="New Mexico: 2027"><path class="state-shape" d="M411.65,345.02L426.34,346.99L440.54,348.74L451.72,350.06L451.84,350.26L464.22,351.6L484.26,353.61L486.48,353.88L498.76,354.99L523.6,356.85L522.72,368.7L521.98,368.64L521.22,379.2L517.58,427.63L515.47,450.52L513.63,475.12L500.57,474.11L488.56,473.1L476.9,472.03L466.79,471.05L443.28,468.56L442.95,470.58L442.47,470.99L443.09,472.65L444.49,473.87L426.79,471.81L411.24,469.87L409.88,480.42L393.15,478.21L397.9,444.33L399.41,433.24L404.39,397.48L406.3,383.53Z"/><text x="459.3" y="412.9" aria-hidden="true">NM</text><title>New Mexico / 2027</title></g>
+<g class="map-state" data-state="41" data-name="Oregon" data-abbreviation="OR" data-coverage="2026" tabindex="0" role="button" aria-pressed="false" aria-label="Oregon: 2026"><path class="state-shape" d="M210.56,77.45L211.7,77.54L212.25,78.68L211.88,79.74L212.56,80.82L213.99,81.27L216.06,80.8L216.83,81.12L219.49,84.38L219.55,85.69L220.1,87.57L219.95,89.81L219.4,91.06L219.63,91.85L218.91,94.66L220.06,95.95L222.97,97.76L224.45,98.25L225.04,99.1L226.36,99.48L227.58,99.09L228.92,99.33L232.44,98.58L233.34,97.88L234.31,97.82L235.44,98.45L238.85,98.6L240.73,99.93L241.81,99.93L243.54,101.23L243.65,102.84L244.5,102.99L245.48,102.32L247.78,102.73L248.46,103.25L249.27,102.77L252.18,102.47L253.23,102.01L254.39,102.5L255.01,103.59L256.63,104.04L259.87,104.24L260.72,103.58L262.45,103.47L264.35,103.01L267.08,103.14L269.24,103.47L270.26,102.55L271.2,102.3L272.42,103.08L276.29,103.23L278.33,103.91L280.46,103.32L280.93,102.93L294.64,106.24L313.94,110.8L314.33,112.78L315.46,115.45L316.55,115.61L316.87,116.59L318,116.93L318.62,117.73L318.55,119.39L319.27,121.13L317.36,123.25L317.02,124.33L316.38,124.66L314.39,127.15L312.53,131.13L311.06,132.73L310.04,133.41L309.65,134.38L309.84,135.53L307.4,138.59L305.03,139.43L302.84,142.77L302.54,143.6L301.12,144.43L300.97,145.77L300.36,146.38L300.91,147.99L300.17,148.73L300.82,149.82L302.05,149.61L302.7,150.94L303.97,151.08L303.76,151.97L304.5,152.27L304.77,153.28L303.89,154.36L303.09,154.53L303.47,156.17L302.17,158.45L301.88,159.53L301.2,159.6L300.85,160.75L291.45,202.54L281.28,200.26L266.46,196.82L263.14,196.11L254.51,193.95L245.81,191.68L241.19,190.54L236.35,189.32L223.77,185.97L207.66,181.28L201.38,179.37L197.06,178.24L190.2,176.3L188.55,175.66L185.13,174.9L178.77,173.06L170.74,170.59L169.66,168.93L169.15,167.21L169.53,165.7L169.19,163.86L169.46,161.92L170.12,159.44L171.81,156.62L172.01,154.62L171.51,154.02L171.52,152.62L170.88,152.32L170.99,149.78L173.67,146.64L174.85,144.14L175.86,142.75L176.77,140.91L176.69,140L178,139.28L179.49,137.63L181.19,135.16L183.99,129.79L186.77,123.33L188.43,118.64L189.75,115.91L190.12,114.56L191.61,111.12L192.66,107.19L193.69,105.78L196.27,100.53L197.4,97.55L197.73,95.82L198.46,94.17L198.61,92.77L199.05,92.39L200.38,89.06L200.75,87.42L200.37,86.6L201.21,85.01L201.6,83.39L201.45,82.39L202.55,81.96L202.92,81.29L203.34,78.8L203.09,76.08L203.36,75.87L204.37,77.8L205.07,78.3L205.14,77.53L206.97,77.51L207.42,78.23L208.42,77.82L209.15,78.11Z"/><text x="243.4" y="143.7" aria-hidden="true">OR</text><title>Oregon / 2026</title></g>
+<g class="map-state" data-state="48" data-name="Texas" data-abbreviation="TX" data-coverage="2027" tabindex="0" role="button" aria-pressed="false" aria-label="Texas: 2027"><path class="state-shape" d="M522.72,368.7L536.79,369.68L548.52,370.44L558.61,371.01L568.7,371.52L578.94,371.97L577,418.02L578.06,417.62L579.03,418.25L581.59,421.51L582.67,422.51L584.52,422.73L584.95,421.75L586.15,421.85L587.59,422.86L588.43,422.8L588.81,420.94L592,423.92L592.31,426.82L593.3,426.74L595.12,427.3L596.33,426.87L597.7,427.87L599.66,428.44L600.61,429.21L601.9,429.05L602.74,428.33L604.1,428.73L605.8,430.83L607.14,430.38L608.23,428.65L609.45,429.21L611.97,429.75L612.88,428.82L613.51,429.41L612.92,430.48L613.48,432.37L614.65,432.69L615.73,432.42L616.23,432.83L615.45,434.98L617.71,436.16L618.34,435.98L620.65,433.89L621.22,432.97L622.28,433.12L623.12,433.79L622.97,434.73L623.84,435.12L624.83,434.62L625.61,435.01L625.53,436.48L626.24,437.02L627.27,437.04L628,435.78L629.55,436.03L630.46,434.79L631.06,435.36L631.29,436.59L630.52,437.5L631.15,439.03L632.61,439.28L632.81,437.36L634.82,435.54L634.66,434.05L636.39,434.12L636.8,435.99L637.43,436.49L638.53,435.99L639.15,437.05L640.53,436.46L640.84,435.05L642.59,435.54L641.71,436.44L642.82,437.2L643.72,437.17L644.22,438.32L645.73,438.24L647.28,440.36L647.92,439.8L648.55,438.4L649.66,438.93L650.65,438.4L650.53,437.34L652,436.55L653.57,436.73L654.16,436.11L655.09,436.23L655.2,435.62L656.99,436.76L657.82,436.23L658.73,436.35L658.67,435.48L659.5,435.66L662.47,434.55L662.77,435.77L665.45,436.08L667.86,435.79L668.87,433.81L670.8,434.36L672.42,436.07L673.96,436.14L674.94,437.89L676.33,438.99L677.76,438.6L679.04,440.17L680.04,440.07L680.3,440.6L681.46,440.36L682.75,441.82L683.43,441.3L683.95,441.12L683.99,442.23L685.56,442.77L685.94,443.51L687.11,442.7L688.52,443.23L689.34,442.28L690.51,443.21L690.91,442.77L692.08,443.17L692.36,455.81L692.85,479.97L693.34,480.16L694.19,481.67L695.56,482.42L696.29,484.1L697.35,485.21L697.21,485.88L697.76,487.28L697.11,489.35L697.55,490.39L699.44,491.54L698.99,492.39L699.98,493.1L700.77,494.92L700.3,496.11L701.68,497L702.14,499.23L703.17,498.95L703.28,501.41L703.91,502.79L702.9,503.34L703.77,504.78L702.97,506.01L703.29,507.5L702.02,509.49L702.01,510.6L700.79,511.91L700.87,512.88L699.92,513.51L699.69,514.33L700.23,514.82L700.61,516.65L699.41,517.94L699.28,519.21L700.36,520.1L700.27,522.1L700.97,523.7L700.1,524.96L700.7,525.76L699.05,527.3L697.74,530.3L696.37,531.41L698.16,534.4L698.17,534.67L694.83,534.68L692.14,535.55L682.03,540.33L680.74,541.19L680,542.3L679.02,542.49L679.27,541.74L681.17,539.74L682.77,539.36L683.32,538.41L684.79,538.56L683.72,537.46L679.76,538.61L678.93,538.5L680.38,536.26L680.68,534.62L680.59,533.14L679.35,532.6L678.15,533.19L677.01,535.22L676.02,535.54L675.09,534.56L674.14,536.24L674.78,536.89L674.06,538L674.82,539.02L676.3,539.34L675.88,540.43L676.71,540.82L676.67,543.77L675.47,544.21L672.49,546.99L671.27,546.63L671.14,548.42L671.56,548.95L674.45,546.71L676.98,544.3L678.1,543.81L678.37,542.69L680.01,543.18L678.54,544.43L674,547.58L671.97,549.49L669.64,551.37L666.7,554.26L665.52,554.44L657.83,559.04L652.34,561.59L649.91,562.86L647.65,564.28L645.83,565.68L644.74,567.18L640.79,569.39L637.43,572L635.45,573.86L632.99,576.7L632.1,578.43L630.06,581.16L628.52,583.97L626.71,587.91L625.33,592.4L624.85,596.48L625.04,600.58L625.41,602.68L626.45,606.86L627.32,609.55L628.46,614.18L629.21,619.4L628.71,618.44L628.35,615.49L626.68,608.62L624.91,608.27L626.23,607.75L624.54,602.56L624.32,600.42L624.43,595.19L625.31,589.66L626.57,586.03L628.05,583.07L629.09,581.68L629.86,579.94L630.5,579.25L630.32,578.29L631.33,576.57L632.7,575.82L635.61,571.56L636.88,571.22L637.49,570.16L638.65,570.13L641.49,567.74L644.79,566.59L644.54,564.81L641.86,566.33L641.04,567.13L639.72,567.23L639.19,565.05L637.82,565.07L637.11,567.77L637.57,568.59L637.29,569.33L634.46,571.66L632.54,571.06L632.35,570.19L629.91,571.39L628.63,572.45L630.22,573.18L632.56,571.91L632.54,573.57L632.06,574.02L629.12,578.64L628.32,578.59L627.8,577.4L626.24,577.57L625.91,577.2L623.54,577.39L622.74,577.14L622.27,577.9L623.15,578.55L625.11,578.26L624.79,579.54L625.3,580.52L627.68,581.61L626.22,584.53L625.25,587.35L625.15,588.24L624.22,590.36L622.19,591.41L621.39,591.03L622.43,590.63L622.68,589.45L622.1,589.39L620.07,591.14L619.64,592.12L621.44,592.47L623.42,591.72L624,591.84L623.45,598.17L622.91,602.32L622.65,602.38L623.28,607.01L623.87,608.32L623.92,610.02L624.62,610.04L626.68,614.97L626.02,615.9L626.41,618.85L626.82,619.28L628.34,619.52L628.41,620.23L629.35,619.88L629.44,622.37L626.65,622.41L626.64,622.81L624.55,623.43L624.56,625L623.02,624.75L622.94,624.24L621.39,623.87L620.89,622.75L620.12,622.65L618.73,620.67L616.39,620.38L615.49,619.71L613.68,619.53L611.94,619.84L610.64,619.47L610.4,620.05L609.62,619.41L608.11,619.81L605.94,619.21L604.14,617.65L604.12,616.98L603.05,617.15L601.42,615.61L600.74,615.81L598.88,614.79L597.08,615.16L595.31,613.04L594.58,612.87L593.86,611.93L592.44,612.19L590.85,611.2L589.33,610.8L588.41,611.16L587.82,610.44L588.27,609.27L587.54,608.12L586.63,607.74L586.55,605.85L586.09,605L585.97,603.4L585.33,602.88L584.8,600.58L583.55,599.68L583.73,599.05L582.54,598.37L582.62,597.45L581.85,596.4L581.19,596.24L581.62,594.67L581.44,593.26L581.75,592.68L581.49,590.94L580.35,590.39L580.42,589.64L579.52,589.32L580.23,588.82L580.88,585.39L579.88,585.04L580.3,583.52L579.42,582.32L578.43,581.63L577.67,581.96L577.07,581.16L576.32,581.24L575.01,579.38L572.84,577.71L572.4,576.18L572.48,575.05L571.73,574.35L571.89,573.41L570.65,573.04L570.17,571.37L569.45,570.87L568.88,569.46L566.34,568.25L564.65,565.97L564.79,565.21L563.62,563.14L563.91,562.21L563.32,561.37L563.96,560.82L562.93,560.45L562.51,559.58L562.81,558.82L561.82,558.2L561.86,557.43L560.78,556.91L560.71,555.05L560.22,554.49L560,553.01L559.51,552.98L558.95,551.17L558.34,551.11L558.14,549.14L557.49,546.18L555.69,544.61L555.9,544.11L555.33,542.86L553.76,542.01L553.57,541.33L551.1,539.77L550.2,537.6L548.34,537.07L547.94,536.16L546.18,535.54L546.57,534.8L546.14,533.34L545.58,534.68L545.18,534.09L545.21,532.68L544.19,532.42L543.32,530.19L542.13,529.56L540.94,529.87L540.7,529.09L540.08,529.58L537.39,529.7L535.99,528.98L534.47,528.6L532.88,528.79L531.99,528.24L530.42,528.74L529.1,528.49L527.82,527.14L526.89,527.13L525.44,526.23L524.62,526.37L523.53,528.72L521.44,528.17L520.39,528.87L519.87,528.6L517.31,529.34L517.12,530.41L516.17,531.17L516.05,532.16L515.46,532.23L515.32,533.3L514.51,533.87L513.53,537.68L512.78,537.74L512.06,539.89L512.75,540.37L511.72,541.49L510.03,541.8L509.61,542.88L507.73,544.34L507.3,546.02L504.99,545.7L503.88,545.83L502.92,544.82L500.98,544.19L500.17,543.49L499.56,542.26L498.5,541.33L496.72,541.09L495.16,540.2L493.97,538.54L493,537.97L490.22,537.32L486.96,534.98L484.75,531.7L483.26,531.43L482.11,530.09L480.82,529.1L479.47,527.4L479.15,525.13L478.35,523.91L477.16,521.31L477.26,520.12L476.87,518.29L477.4,517.52L477.55,515.3L476.31,512.31L474.52,510.03L474.73,509.37L474.13,505.72L473.68,504.86L472.74,504.65L472.21,502.8L471.09,502.69L470.25,501.25L469.43,500.98L468.22,499.67L467.35,499.67L464.76,498.06L464.78,497.26L461.86,494.57L461.16,492.3L460.33,491.42L457.96,489.97L456.34,486.91L455.15,486.2L454.84,484.95L453.89,484.19L452.41,483.88L450.08,482.03L449.47,480.18L448.83,479.61L448.53,478.19L447.29,475.39L445.97,474.47L445.18,474.77L444.49,473.87L443.09,472.65L442.47,470.99L442.95,470.58L443.28,468.56L466.79,471.05L476.9,472.03L488.56,473.1L500.57,474.11L513.63,475.12L515.47,450.52L517.58,427.63L521.22,379.2L521.98,368.64Z"/><text x="587.6" y="491.7" aria-hidden="true">TX</text><title>Texas / 2027</title></g>
+<g class="map-state" data-state="49" data-name="Utah" data-abbreviation="UT" data-coverage="" tabindex="0" role="button" aria-pressed="false" aria-label="Utah: coverage not announced"><path class="state-shape" d="M342.2,213.27L344.71,213.89L373.85,218.85L374.17,219.02L385.59,220.87L393.51,222.1L389.75,245.63L399.26,247.19L416.11,249.62L424.58,250.75L423.38,259.73L422.94,262.53L418.46,294.89L416.99,304.43L415.53,314.9L415.51,317.56L413.44,332.5L412.86,336.16L411.65,345.02L400.93,343.52L385.37,341.21L384.84,340.98L368.04,338.38L347.36,334.89L328.66,331.52L319.65,329.8L320.07,327.38L324.14,306.45L326.38,294.78L335.1,249.84L336.5,242.82L341.75,215.81Z"/><text x="372.3" y="283.6" aria-hidden="true">UT</text><title>Utah / Not announced</title></g>
+<g class="map-state" data-state="53" data-name="Washington" data-abbreviation="WA" data-coverage="2026" tabindex="0" role="button" aria-pressed="false" aria-label="Washington: 2026"><path class="state-shape" d="M233.68,57.33L234.46,55.35L235.45,54.13L235.8,55.32L235.35,56.63L236.23,57.33L234.69,58L233.62,57.93ZM239.41,30.04L239.65,29.28L240.54,30.39L239.46,30.62ZM239.55,25.65L239.91,25.47L240.69,28.08L239.96,27ZM238.32,28.88L238.87,28.44L239.27,29.52L238.31,29.93ZM235.56,36.73L237.85,34.31L238.29,33.3L239.19,33.31L239.19,34.73L240.03,36.32L239.13,36.45L238.61,35.9L236.37,37.3L237.68,37.47L238.06,38.47L238.09,40.09L237.76,40.42L237.73,42.5L238.95,40.95L239.55,42.32L240.32,42.79L240.19,44.73L239.42,45.71L238.71,45.25L238.56,43.41L237.28,43.56L237.53,42.92L236.76,41.86L237.42,40.11L237.44,38.94L236.47,38.76ZM236.1,23.16L238.18,24.95L236.66,24.26ZM234.09,24.83L235.15,24.61L235.03,25.25ZM235.76,18L236.64,18.86L235.69,18.6ZM231.4,26.57L231.95,26.1L233.02,26.41L233.56,27.85L234.44,28.29L233.9,26.7L236.47,25.2L237.1,25.42L238.79,27.12L237.5,27.79L237.71,29.23L237.25,30.39L236.54,30.7L236.18,32.19L235.21,32.01L234.7,30.82L232.99,30.34L231.99,29.26ZM231.5,24.35L232.24,24.66L233.12,26.17ZM327.5,41.8L324.25,56.07L322.02,65.44L318.08,83.18L314.18,100.48L313.5,102.27L314.37,103.74L314.72,106.74L313.78,108.27L313.94,110.8L294.64,106.24L280.93,102.93L280.46,103.32L278.33,103.91L276.29,103.23L272.42,103.08L271.2,102.3L270.26,102.55L269.24,103.47L267.08,103.14L264.35,103.01L262.45,103.47L260.72,103.58L259.87,104.24L256.63,104.04L255.01,103.59L254.39,102.5L253.23,102.01L252.18,102.47L249.27,102.77L248.46,103.25L247.78,102.73L245.48,102.32L244.5,102.99L243.65,102.84L243.54,101.23L241.81,99.93L240.73,99.93L238.85,98.6L235.44,98.45L234.31,97.82L233.34,97.88L232.44,98.58L228.92,99.33L227.58,99.09L226.36,99.48L225.04,99.1L224.45,98.25L222.97,97.76L220.06,95.95L218.91,94.66L219.63,91.85L219.4,91.06L219.95,89.81L220.1,87.57L219.55,85.69L219.49,84.38L216.83,81.12L216.06,80.8L213.99,81.27L212.56,80.82L211.88,79.74L212.25,78.68L211.7,77.54L210.56,77.45L208.71,76.71L208.08,75.68L207.36,76.1L206.69,75.69L205.3,76.35L204.82,76.07L204.07,74.27L203.56,73.96L202.29,74.76L203.46,72.19L204.21,69.79L204.94,66.65L205.33,67.94L204.62,69.84L204.07,72.56L205.03,72.85L204.94,71.2L205.3,70.03L205.86,70.69L207.03,69.58L206.68,67.03L207.5,66.39L209.21,65.79L208.51,64.79L207.97,65.21L206.46,65.35L205.32,63.92L205.69,62.46L205.77,60.15L206.43,60.46L206.26,61.23L208.34,60.5L210.35,60.49L209.93,59.79L208.18,58.79L208.35,57.89L206.95,57.18L206.36,57.5L206.24,59.36L205.26,59.49L206.32,56.38L206.71,53.86L206.86,51.13L206.06,49.21L206.81,44.79L207.05,39.95L206.5,39.21L206.63,38.09L205.87,36.65L205.06,35.87L204.88,33.94L205.59,30.88L205.41,29.07L205.92,28.88L207.62,25.83L206.87,24.37L208.13,24.53L209.3,25.45L211.51,28.16L212.94,29.35L213.5,29.32L215.27,30.97L215.07,31.32L216.75,32.69L218.53,33.49L220.99,33.92L222.47,35.14L224.82,35.69L225.31,36.49L227.54,37.12L229.15,36.37L230.36,37.83L230.51,38.83L232.42,39.13L232.1,39.65L232.75,40.31L232.44,41.46L233.03,41.49L233.51,40.54L232.93,39.66L233.18,38.89L235.16,38.67L235.16,39.31L234.17,39.74L234.42,40.86L235.85,39.84L235.72,41.9L234.85,41.87L235.25,43.18L235.22,44.48L235.79,45.07L234.39,45.14L234.23,45.99L233.13,46.42L232.61,47.59L231.36,48.84L231.16,48.4L232.42,46.4L231.48,46.5L230.03,48.58L228.47,49.58L225.38,52.51L223.95,54.58L225.85,55.26L227.93,54.93L228.75,54.34L225.56,54.74L224.74,53.94L228.36,50.27L230.48,49.33L232.19,49.29L232.83,47.9L234.09,46.74L235.63,45.77L236.16,45.9L236.24,43.91L237.17,45.02L236.73,48.84L235.74,48.51L236.16,49.52L235.68,50.79L235.66,52.3L234.69,52.81L234.42,53.53L235.13,54.06L234.32,54.83L233.52,56.42L233.62,56.9L232.68,58.03L232.87,58.89L231.58,60.17L230.54,58.26L231.48,56.5L230.41,57.08L229.69,58.19L229.81,59.22L230.89,60.28L230.25,60.43L229.43,61.84L228.64,60.55L228.12,58.2L229.02,57.68L229.4,56.52L227.89,57.82L227.88,59.33L227.27,60.19L228.07,60.09L228.3,61.53L229.68,62.4L230.82,61.17L231.5,61.11L233.22,58.84L233.3,58.25L234.35,59.76L235,58.68L236.72,58.45L237.01,55.3L236.69,52.91L238.08,52.49L237.09,51L238.41,49.67L238.63,47.82L239.67,47.17L240.83,45.01L242.24,44.75L242.5,43.53L241.88,42.86L241.07,40.79L241.52,39.42L241.26,38.34L240.38,38.09L239.75,38.9L239.93,40.34L240.74,42.26L239.54,40.24L238.88,39.97L238.82,38.74L239.35,37.28L240.49,37.11L241.25,37.78L242.01,37.12L241.7,36.1L240.44,34.81L239.99,33.68L240.25,32.94L238.5,33.13L238.1,31.88L238.68,30.8L239.81,30.83L240.44,31.33L240.64,32.39L241.65,32.59L241.77,30.34L242.71,30.48L243.19,29.9L242.41,28.31L242.5,26.95L243.17,26.23L242.64,25.47L241.7,25.31L240.29,25.83L240.95,25.03L240.08,24.49L240.33,22.94L239.59,21.95L240.46,21.09L239.44,20.6L240.76,19.45L250.69,22.28L255.88,23.85L263.78,25.93L271.52,28.04L282.35,30.89L295.53,34.21L309.75,37.67Z"/><text x="265.9" y="65.7" aria-hidden="true">WA</text><title>Washington / 2026</title></g>
+<g class="map-state" data-state="56" data-name="Wyoming" data-abbreviation="WY" data-coverage="" tabindex="0" role="button" aria-pressed="false" aria-label="Wyoming: coverage not announced"><path class="state-shape" d="M520.06,166.2L518.41,186.35L517.23,200.07L516.14,213.24L512.13,260.49L501.2,259.54L498.03,259.31L482.77,257.85L474.14,256.92L470.01,256.36L449.49,253.97L433.72,252.01L424.58,250.75L416.11,249.62L399.26,247.19L389.75,245.63L393.51,222.1L395.39,210.31L396.26,205.23L402.7,164.29L403.16,160.76L404.56,151.98L409,152.65L410.28,153.11L418.61,154.29L420.1,154.33L426.02,155.26L436.68,156.67L437,156.87L446.6,158.17L469.16,160.97L469.96,161.15L483.53,162.75L489.08,163.34L489.34,163.19L508.35,165.11Z"/><text x="456.5" y="207.3" aria-hidden="true">WY</text><title>Wyoming / Not announced</title></g></svg>
+              <div class="map-legend" aria-label="Map legend"><span><i class="swatch year-2026"></i>2026</span><span><i class="swatch year-2027"></i>2027</span><span><i class="swatch unannounced"></i>Not announced</span></div>
+            </div>
+            <aside class="coverage-detail" aria-label="Selected state" aria-live="polite" aria-atomic="true">
+              <p class="section-label">REGIONAL COVERAGE</p><p id="state-abbreviation" aria-hidden="true">CA</p><h3 id="state-name">California</h3><p class="coverage-date" id="state-year">2026</p><p id="state-description">California joins Oregon and Washington in our 2026 coverage plan.</p><a class="text-link" href="./services.html">Explore services <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+            </aside>
+          </div>
+          <div class="coverage-schedule">
+            <section aria-labelledby="coverage-2026"><div class="schedule-heading"><span class="section-label">PACIFIC COAST</span><h3 id="coverage-2026">2026</h3></div><ul><li><button type="button" data-state-select="06">California <span>CA</span></button></li><li><button type="button" data-state-select="41">Oregon <span>OR</span></button></li><li><button type="button" data-state-select="53">Washington <span>WA</span></button></li></ul></section>
+            <section aria-labelledby="coverage-2027"><div class="schedule-heading"><span class="section-label">SOUTHWEST &amp; TEXAS</span><h3 id="coverage-2027">2027</h3></div><ul><li><button type="button" data-state-select="04">Arizona <span>AZ</span></button></li><li><button type="button" data-state-select="35">New Mexico <span>NM</span></button></li><li><button type="button" data-state-select="08">Colorado <span>CO</span></button></li><li><button type="button" data-state-select="48">Texas <span>TX</span></button></li></ul></section>
+          </div>
+          <p class="map-credit">State boundaries: U.S. Census Bureau via <a href="https://github.com/topojson/us-atlas">U.S. Atlas</a>. Coverage years shown are the lite flite regional plan.</p>
+        </div>
+      </section>
+      <section class="project-band" aria-labelledby="project-heading"><div class="project-inner wrap"><h2 id="project-heading">A closer look at your next project.</h2><a class="text-link" href="./services.html#pricing">Services &amp; pricing <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a></div></section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner wrap">
+        <a class="footer-brand" href="./index.html" aria-label="lite flite home">lite flite</a>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="./index.html">Home</a><a href="./services.html">Services</a><a href="./services.html#pricing">Pricing</a><a href="./about.html">About</a><a href="./news.html" aria-current="page">News</a></nav>
+        <p class="copyright">&copy; <span id="copyright-year">2026</span> lite flite</p>
+      </div>
+    </footer>
+    </div>
+
+    <script>
+      const menuButton = document.querySelector('.menu-toggle');
+      const navigation = document.querySelector('#main-navigation');
+      const mobile = window.matchMedia('(max-width: 680px)');
+
+      function setMenu(open, restoreFocus = false) {
+        menuButton.setAttribute('aria-expanded', String(open));
+        menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+        navigation.dataset.open = String(open);
+        if (restoreFocus) menuButton.focus();
+      }
+
+      menuButton.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
+      navigation.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') setMenu(false, true);
+      });
+      document.addEventListener('click', event => { if (!event.target.closest('.site-header')) setMenu(false); });
+      document.addEventListener('focusin', event => { if (!event.target.closest('.site-header')) setMenu(false); });
+      mobile.addEventListener('change', () => setMenu(false));
+
+      document.querySelector('#copyright-year').textContent = new Date().getFullYear();
+(() => {
+  const states = [...document.querySelectorAll('.map-state')];
+  const map = document.querySelector('.coverage-map');
+  const stateButtons = [...document.querySelectorAll('[data-state-select]')];
+  const yearButtons = [...document.querySelectorAll('[data-year]')];
+  let pinned = '06';
+  let scope = 'all';
+  let touchPointer = null;
+
+  function select(id) {
+    const state = states.find(item => item.dataset.state === id);
+    if (!state) return;
+    const {name, abbreviation, coverage} = state.dataset;
+    states.forEach(item => {
+      item.classList.toggle('is-active', item === state);
+      item.setAttribute('aria-pressed', String(item === state));
+    });
+    stateButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.stateSelect === id)));
+    document.querySelector('#state-name').textContent = name;
+    document.querySelector('#state-abbreviation').textContent = abbreviation;
+    document.querySelector('#state-year').textContent = coverage || 'Not announced';
+    document.querySelector('#state-description').textContent = coverage === '2026'
+      ? `${name} is part of our 2026 Pacific Coast coverage plan, alongside ${['California', 'Oregon', 'Washington'].filter(item => item !== name).join(' and ')}.`
+      : coverage === '2027'
+        ? `${name} is part of our 2027 expansion across Arizona, New Mexico, Colorado, and Texas.`
+        : `A coverage year for ${name} has not been announced.`;
+  }
+
+  function setYear(year) {
+    scope = year;
+    yearButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.year === year)));
+    states.forEach(state => state.classList.toggle('is-dimmed', year !== 'all' && state.dataset.coverage !== year));
+    if (year !== 'all') pinned = states.find(state => state.dataset.coverage === year).dataset.state;
+    select(pinned);
+  }
+
+  states.forEach(state => {
+    state.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch') select(state.dataset.state); });
+    state.addEventListener('focus', () => select(state.dataset.state));
+    state.addEventListener('click', () => { pinned = state.dataset.state; select(pinned); });
+    state.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); pinned = state.dataset.state; select(pinned); }
+      if (['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp'].includes(event.key)) {
+        event.preventDefault();
+        const step = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : -1;
+        states[(states.indexOf(state) + step + states.length) % states.length].focus();
+      }
+      if (event.key === 'Escape') select(pinned);
+    });
+  });
+  map.addEventListener('pointerleave', event => { if (event.pointerType !== 'touch') select(pinned); });
+  // Pointer capture keeps a touch drag active as it crosses SVG state boundaries.
+  map.addEventListener('pointerdown', event => {
+    if (event.pointerType !== 'touch' || !event.target.closest('.map-state')) return;
+    touchPointer = event.pointerId;
+    map.setPointerCapture(event.pointerId);
+    pinned = event.target.closest('.map-state').dataset.state;
+    select(pinned);
+  });
+  map.addEventListener('pointermove', event => {
+    if (event.pointerId !== touchPointer) return;
+    const state = document.elementFromPoint(event.clientX, event.clientY)?.closest('.map-state');
+    if (state) { pinned = state.dataset.state; select(pinned); }
+  });
+  const endTouch = () => { touchPointer = null; };
+  map.addEventListener('pointerup', endTouch);
+  map.addEventListener('pointercancel', endTouch);
+  stateButtons.forEach(button => button.addEventListener('click', () => {
+    if (scope !== 'all') setYear('all');
+    pinned = button.dataset.stateSelect;
+    select(pinned);
+    document.querySelector('.coverage-layout').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'center'});
+  }));
+  yearButtons.forEach(button => button.addEventListener('click', () => setYear(button.dataset.year)));
+  select(pinned);
+})();
+
+    </script>
+  </body>
+</html>
 
