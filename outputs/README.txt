@@ -7,11 +7,13 @@ can be opened as static HTML; private authentication and models cannot.
 Main page: index.html
 Services page: services.html
 About page: about.html
+Assets page: assets.html
 
 Keep these files together in one folder:
   index.html
   services.html
   about.html
+  assets.html
   lite-flite-logo.png
   disaster.mp4
   disaster-poster.jpg
@@ -21,7 +23,7 @@ Each HTML file includes its complete CSS and JavaScript. No build step or
 external library download is required.
 
 Navigation:
-- Main menu: Services, Pricing, About, Client Login.
+- Main menu: Services, Pricing, About, Assets, Client Login.
 - Services and About: visible Home button, mobile Home link, and footer Home link.
 - Every logo links to index.html.
 - Pricing opens the pricing section on services.html.
@@ -36,3 +38,7 @@ Verification:
 - Browser interaction and visual verification were unavailable in this session.
 
 The supplied logo and video are unchanged.
+
+Assets directory: assets.html groups drones, sensors, docks, and field equipment.
+Replace each category's coming-soon message with confirmed fleet entries.
+Keep the root and outputs copies in sync when adding equipment.

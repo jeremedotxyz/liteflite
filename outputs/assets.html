@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#224455">
-    <meta name="description" content="lite flite provides insurance adjusting support, disaster relief LiDAR and drone surveying, solar and telecom inspections, and residential and commercial property inspection.">
-    <title>Services &amp; Pricing | lite flite</title>
+    <meta name="description" content="Explore the lite flite fleet: drones, sensors, docking systems, and field equipment for aerial capture, mapping, and inspection.">
+    <title>Assets | lite flite</title>
     <link rel="preload" as="image" href="./lite-flite-logo.png">
     <style>
       :root {
@@ -51,13 +51,13 @@
       /* Window the supplied logo's empty margins without altering its artwork. */
       .brand { display: block; position: relative; width: 188px; height: 100px; overflow: hidden; flex-shrink: 0; }
       .brand img { position: absolute; width: 282px; max-width: none; height: 188px; left: -48px; top: -44px; mix-blend-mode: lighten; }
-      .nav-links { display: flex; align-items: center; gap: 44px; }
+      .nav-links { display: flex; align-items: center; gap: 28px; }
       .nav-links a { position: relative; display: flex; min-height: 48px; align-items: center; font-size: 15px; font-weight: 500; }
       .nav-links a::after { position: absolute; bottom: 7px; left: 0; width: 100%; height: 2px; background: var(--orange); content: ""; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
       .nav-links a:hover::after { transform: scaleX(1); }
       .nav-links .client-login { color: var(--orange); }
       @media (min-width: 681px) and (max-width: 980px) {
-        .nav-links { gap: 20px; }
+        .nav-links { gap: 10px; }
         .nav-links a { font-size: 12px; }
         .header-inner .brand { width: 120px; }
         .header-inner .home-button { width: 36px; padding: 0; margin-right: 12px; }
@@ -306,6 +306,9 @@
         .home-button-label { display: none; }
         .nav-links a.mobile-home { display: flex; }
       }
+      .fleet-note { max-width: 650px; margin-top: 24px; font-size: 16px; line-height: 1.7; color: var(--bg); }
+      .asset-list { border-top: 1px solid rgba(23, 52, 67, .25); }
+      .asset-list .asset-pending { margin: 0; padding-block: 16px; font-size: 14px; }
     </style>
     <noscript>
       <style>
@@ -353,10 +356,10 @@
         </button>
         <div class="nav-links" id="main-navigation">
           <a class="mobile-home" href="./index.html">Home</a>
-          <a href="./services.html" aria-current="page">Services</a>
-          <a href="#pricing">Pricing</a>
+          <a href="./services.html">Services</a>
+          <a href="./services.html#pricing">Pricing</a>
           <a href="./about.html">About</a>
-          <a href="./assets.html">Assets</a>
+          <a href="./assets.html" aria-current="page">Assets</a>
           <a href="./portal/login.html" class="client-login">Client Login</a>
         </div>
       </nav>
@@ -367,14 +370,14 @@
         <video class="hero-video" id="field-video" src="./disaster.mp4" poster="./disaster-poster.jpg" muted loop playsinline preload="metadata" aria-label="Aerial footage of properties and roads following a disaster"></video>
         <div class="hero-inner wrap">
           <div class="hero-content">
-            <h1 id="hero-heading"><span>Aerial inspection</span> <span>&amp; mapping.</span></h1>
+            <h1 id="hero-heading"><span>Our assets.</span> <span>Air to ground.</span></h1>
             <div class="hero-description">
-              <p>Claim documentation, LiDAR mapping, infrastructure review, and property inspection. A flight profile that fits the job.</p>
-              <a class="primary-link" href="#service-details">Find your service <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+              <p>The aircraft, sensors, and field equipment behind the work. Explore the lite flite fleet.</p>
+              <a class="primary-link" href="#fleet">Explore assets <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
             </div>
           </div>
           <div class="hero-footer">
-            <p class="footage-caption"><span>SERVICES</span> Inspection, mapping &amp; documentation</p>
+            <p class="footage-caption"><span>ASSETS</span> Aircraft, sensors &amp; field equipment</p>
             <button class="video-control" type="button" aria-label="Play aerial footage" title="Play aerial footage" aria-controls="field-video">
               <svg class="icon" aria-hidden="true"><use href="#play"/></svg>
             </button>
@@ -382,99 +385,77 @@
         </div>
       </section>
 
-      <nav class="service-strip" aria-label="Inspection services">
+      <nav class="service-strip" aria-label="Asset categories">
         <div class="service-strip-inner wrap">
-          <a href="#insurance">Insurance &amp; claims <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
-          <a href="#lidar">LiDAR &amp; surveying <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
-          <a href="#infrastructure">Solar &amp; telecom <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
-          <a href="#property">Property inspection <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+          <a href="#drones">Drones <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+          <a href="#sensors">Sensors <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+          <a href="#docks">Docks <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+          <a href="#field-equipment">Field Equipment <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
         </div>
       </nav>
 
-      <section class="detail-section" id="service-details" aria-labelledby="service-heading">
+      <section class="detail-section" id="fleet" aria-labelledby="fleet-heading">
         <div class="wrap">
           <div class="detail-heading">
-            <p class="section-label"><span class="number">01 /</span> OUR SERVICES</p>
-            <h2 id="service-heading">The right view for the job.</h2>
+            <p class="section-label"><span class="number">01 /</span> FLEET DIRECTORY</p>
+            <h2 id="fleet-heading">The equipment behind the work.</h2>
           </div>
+          <p class="fleet-note">Our equipment directory is coming soon. Explore the categories below.</p>
 
-          <article class="service-detail" id="insurance" aria-labelledby="insurance-heading">
-            <p class="section-label"><span class="number">01</span> INSURANCE</p>
+          <article class="service-detail" id="drones" aria-labelledby="drones-heading">
+            <p class="section-label"><span class="number">01</span> DRONES</p>
             <div>
-              <h3 id="insurance-heading">Claim documentation</h3>
-              <p>Roof, exterior, storm, fire, and site condition imagery captured for adjusters, carriers, and property owners. A clear visual record to support the assessment and repair process.</p>
+              <h3 id="drones-heading">Aircraft</h3>
+              <p>Drones for aerial capture, mapping, and inspection.</p>
             </div>
-            <ul class="scope-list" aria-label="Insurance inspection scope">
-              <li>Roof &amp; exterior conditions</li>
-              <li>Storm &amp; fire damage</li>
-              <li>Site conditions &amp; access</li>
-            </ul>
+            <div class="asset-list">
+              <!-- Add confirmed fleet entries here: model, role, key capabilities, and availability. -->
+              <p class="asset-pending">Equipment details coming soon.</p>
+            </div>
           </article>
 
-          <article class="service-detail" id="lidar" aria-labelledby="lidar-heading">
-            <p class="section-label"><span class="number">02</span> LIDAR</p>
+          <article class="service-detail" id="sensors" aria-labelledby="sensors-heading">
+            <p class="section-label"><span class="number">02</span> SENSORS</p>
             <div>
-              <h3 id="lidar-heading">Mapping &amp; measurement</h3>
-              <p>LiDAR-supported site scans for terrain, access, elevations, and perimeter review. Drone surveying and measurable site context for mapping and disaster relief work.</p>
+              <h3 id="sensors-heading">LiDAR &amp; payloads</h3>
+              <p>Scanning and imaging equipment for detailed site capture.</p>
             </div>
-            <ul class="scope-list" aria-label="LiDAR and surveying scope">
-              <li>Terrain &amp; elevation capture</li>
-              <li>Site &amp; perimeter mapping</li>
-              <li>Disaster relief surveying</li>
-            </ul>
+            <div class="asset-list">
+              <!-- Add confirmed fleet entries here: model, role, key capabilities, and availability. -->
+              <p class="asset-pending">Equipment details coming soon.</p>
+            </div>
           </article>
 
-          <article class="service-detail" id="infrastructure" aria-labelledby="infrastructure-heading">
-            <p class="section-label"><span class="number">03</span> INFRASTRUCTURE</p>
+          <article class="service-detail" id="docks" aria-labelledby="docks-heading">
+            <p class="section-label"><span class="number">03</span> DOCKS</p>
             <div>
-              <h3 id="infrastructure-heading">Solar &amp; telecom</h3>
-              <p>Panel, roofline, tower, equipment, and access inspections where repeatable angles and clear records matter. Aerial views of installations that are difficult to inspect from the ground.</p>
+              <h3 id="docks-heading">Docking &amp; deployment</h3>
+              <p>Docking systems and equipment that support flight operations.</p>
             </div>
-            <ul class="scope-list" aria-label="Infrastructure inspection scope">
-              <li>Solar installations &amp; rooflines</li>
-              <li>Towers &amp; site equipment</li>
-              <li>Access &amp; visible conditions</li>
-            </ul>
+            <div class="asset-list">
+              <!-- Add confirmed fleet entries here: model, role, key capabilities, and availability. -->
+              <p class="asset-pending">Equipment details coming soon.</p>
+            </div>
           </article>
 
-          <article class="service-detail" id="property" aria-labelledby="property-heading">
-            <p class="section-label"><span class="number">04</span> PROPERTY</p>
+          <article class="service-detail" id="field-equipment" aria-labelledby="field-equipment-heading">
+            <p class="section-label"><span class="number">04</span> FIELD EQUIPMENT</p>
             <div>
-              <h3 id="property-heading">Residential &amp; commercial</h3>
-              <p>Property condition capture for owners, builders, managers, and teams preparing repair or maintenance work. See the roof, exterior, and wider site together.</p>
+              <h3 id="field-equipment-heading">On the ground</h3>
+              <p>Surveying tools, power systems, and other field support equipment.</p>
             </div>
-            <ul class="scope-list" aria-label="Property inspection scope">
-              <li>Residential &amp; commercial sites</li>
-              <li>Roof &amp; exterior documentation</li>
-              <li>Repair &amp; maintenance planning</li>
-            </ul>
+            <div class="asset-list">
+              <!-- Add confirmed fleet entries here: model, role, key capabilities, and availability. -->
+              <p class="asset-pending">Equipment details coming soon.</p>
+            </div>
           </article>
-        </div>
-      </section>
-
-      <section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-        <div class="pricing-layout wrap">
-          <p class="section-label"><span class="number">02 /</span> PRICING</p>
-          <div class="pricing-copy">
-            <h2 id="pricing-heading">Quoted for the site.<br>Scoped to the job.</h2>
-            <p>Simple inspection flights, priority claim response, and LiDAR-supported mapping are quoted by mission. Pricing follows the site, scope, and response window so the deliverable matches the work.</p>
-            <dl class="quote-factors">
-              <div><dt>Site</dt><dd>Location, size, terrain, and access to the area being inspected.</dd></div>
-              <div><dt>Scope</dt><dd>The capture method, level of detail, and documentation the job calls for.</dd></div>
-              <div><dt>Timing</dt><dd>The required response window and any repeat visits or follow-up capture.</dd></div>
-            </dl>
-            <div class="pricing-actions">
-              <a class="primary-link" id="pricing-action" href="#service-details">Compare services <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
-              <a class="text-link" href="./about.html">Our approach <svg class="icon" aria-hidden="true"><use href="#arrow-right"/></svg></a>
-            </div>
-          </div>
         </div>
       </section>
 
       <section class="project-band" aria-labelledby="project-heading">
         <div class="project-inner wrap">
-          <h2 id="project-heading">Careful capture. Useful evidence.</h2>
-          <a class="text-link" href="./about.html">About lite flite <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+          <h2 id="project-heading">A closer look at your next project.</h2>
+          <a class="text-link" href="./services.html">Explore services <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
         </div>
       </section>
     </main>
@@ -482,7 +463,7 @@
     <footer class="site-footer">
       <div class="footer-inner wrap">
         <a class="footer-brand" href="./index.html" aria-label="lite flite home">lite flite</a>
-        <nav class="footer-nav" aria-label="Footer navigation"><a href="./index.html">Home</a><a href="./services.html" aria-current="page">Services</a><a href="#pricing">Pricing</a><a href="./about.html">About</a><a href="./assets.html">Assets</a></nav>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="./index.html">Home</a><a href="./services.html">Services</a><a href="./services.html#pricing">Pricing</a><a href="./about.html">About</a><a href="./assets.html" aria-current="page">Assets</a></nav>
         <p class="copyright">&copy; <span id="copyright-year">2026</span> lite flite</p>
       </div>
     </footer>
