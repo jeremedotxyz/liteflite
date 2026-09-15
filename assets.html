@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#224455">
-    <meta name="description" content="Explore the lite flite fleet: drones, sensors, docking systems, and field equipment for aerial capture, mapping, and inspection.">
+    <meta name="description" content="Explore the lite flite fleet: drones, a Piper Archer LX, sensors, docking systems, and field equipment for aerial capture, mapping, and inspection.">
     <title>Assets | lite flite</title>
     <link rel="preload" as="image" href="./lite-flite-logo.png">
     <style>
@@ -306,6 +306,20 @@
       .fleet-note { max-width: 650px; margin-top: 24px; font-size: 16px; line-height: 1.7; color: var(--bg); }
       .asset-list { border-top: 1px solid rgba(23, 52, 67, .25); }
       .asset-list .asset-pending { margin: 0; padding-block: 16px; font-size: 14px; }
+      .aerial-intro, .aerial-list { grid-column: 2 / -1; }
+      .fleet-entry { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; padding-block: 28px; border-bottom: 1px solid rgba(23, 52, 67, .2); }
+      .fleet-entry:last-child { border-bottom: 0; padding-bottom: 0; }
+      .asset-quantity { display: block; margin-bottom: 12px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12px; color: var(--bg); }
+      .fleet-entry h4 { margin: 0; font-size: 24px; line-height: 1.25; font-weight: 500; }
+      .fleet-entry p { margin-top: 0; }
+      .aircraft-base { margin-top: 20px; }
+      @media (max-width: 980px) {
+        .aerial-intro, .aerial-list { grid-column: 1 / -1; }
+      }
+      @media (max-width: 680px) {
+        .fleet-entry { grid-template-columns: 1fr; gap: 16px; padding-block: 24px; }
+        .fleet-entry h4 { font-size: 23px; }
+      }
     </style>
     <noscript>
       <style>
@@ -384,7 +398,7 @@
 
       <nav class="service-strip" aria-label="Asset categories">
         <div class="service-strip-inner wrap">
-          <a href="#drones">Drones <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+          <a href="#drones">Aerial Assets <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           <a href="#sensors">Sensors <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           <a href="#docks">Docks <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           <a href="#field-equipment">Field Equipment <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
@@ -397,17 +411,42 @@
             <p class="section-label"><span class="number">01 /</span> FLEET DIRECTORY</p>
             <h2 id="fleet-heading">The equipment behind the work.</h2>
           </div>
-          <p class="fleet-note">Our equipment directory is coming soon. Explore the categories below.</p>
+          <p class="fleet-note">Explore our aerial fleet and the equipment that supports work in the field.</p>
 
-          <article class="service-detail" id="drones" aria-labelledby="drones-heading">
-            <p class="section-label"><span class="number">01</span> DRONES</p>
-            <div>
-              <h3 id="drones-heading">Aircraft</h3>
-              <p>Drones for aerial capture, mapping, and inspection.</p>
+          <article class="service-detail aerial-assets" id="drones" aria-labelledby="drones-heading">
+            <p class="section-label"><span class="number">01</span> AERIAL ASSETS</p>
+            <div class="aerial-intro">
+              <h3 id="drones-heading">Our aerial fleet</h3>
+              <p>Compact mapping drones, an industrial aircraft platform, and a crewed airplane for regional operations.</p>
             </div>
-            <div class="asset-list">
-              <!-- Add confirmed fleet entries here: model, role, key capabilities, and availability. -->
-              <p class="asset-pending">Equipment details coming soon.</p>
+            <div class="asset-list aerial-list">
+              <section class="fleet-entry" aria-labelledby="mavic-heading">
+                <div>
+                  <span class="asset-quantity">3 aircraft</span>
+                  <h4 id="mavic-heading">DJI Mavic 3 Enterprise</h4>
+                </div>
+                <p>Compact, portable drones for aerial mapping, site documentation, and visual inspections. A mechanical-shutter camera captures detailed imagery for photogrammetry and accurate site models.</p>
+              </section>
+              <section class="fleet-entry" aria-labelledby="matrice-heading">
+                <div>
+                  <span class="asset-quantity">1 aircraft</span>
+                  <h4 id="matrice-heading">DJI Matrice 350 RTK</h4>
+                </div>
+                <p>A rugged industrial drone platform for demanding mapping and inspection projects. Supports interchangeable camera and LiDAR payloads, with RTK positioning for precise flight operations. Capture capabilities depend on the fitted payload.</p>
+              </section>
+              <section class="fleet-entry" aria-labelledby="piper-heading">
+                <div>
+                  <span class="asset-quantity">1 aircraft</span>
+                  <h4 id="piper-heading">2015 Piper Archer LX</h4>
+                </div>
+                <div class="aircraft-description">
+                  <p>A four-seat, single-engine airplane supporting regional aerial operations. Based at Pearson Field (KVUO) in Vancouver, Washington, serving Washington, Oregon, and Northern California.</p>
+                  <ul class="scope-list aircraft-base" aria-label="Piper base and service area">
+                    <li><strong>Home base:</strong> Pearson Field (KVUO) &middot; Vancouver, WA</li>
+                    <li><strong>Service area:</strong> Washington, Oregon &amp; Northern California</li>
+                  </ul>
+                </div>
+              </section>
             </div>
           </article>
 
