@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#224455">
-    <meta name="description" content="Explore the lite flite fleet: drones, sensors, docking systems, and field equipment for aerial capture, mapping, and inspection.">
+    <meta name="description" content="Explore the lite flite fleet: drones, a Cessna 182, sensors, docking systems, and field equipment for aerial capture, mapping, and inspection.">
     <title>Assets | lite flite</title>
     <link rel="preload" as="image" href="./lite-flite-logo.png">
     <style>
@@ -306,7 +306,23 @@
       .fleet-note { max-width: 650px; margin-top: 24px; font-size: 16px; line-height: 1.7; color: var(--bg); }
       .asset-list { border-top: 1px solid rgba(23, 52, 67, .25); }
       .asset-list .asset-pending { margin: 0; padding-block: 16px; font-size: 14px; }
-    </style>
+      .aerial-intro, .aerial-list { grid-column: 2 / -1; }
+      .fleet-entry { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; padding-block: 28px; border-bottom: 1px solid rgba(23, 52, 67, .2); }
+      .fleet-entry:last-child { border-bottom: 0; padding-bottom: 0; }
+      .asset-quantity { display: block; margin-bottom: 12px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12px; color: var(--bg); }
+      .fleet-entry h4 { margin: 0; font-size: 24px; line-height: 1.25; font-weight: 500; }
+      .fleet-entry p { margin-top: 0; }
+      .aircraft-base { margin-top: 20px; }
+      @media (max-width: 980px) {
+        .aerial-intro, .aerial-list { grid-column: 1 / -1; }
+      }
+      @media (max-width: 680px) {
+        .fleet-entry { grid-template-columns: 1fr; gap: 16px; padding-block: 24px; }
+        .fleet-entry h4 { font-size: 23px; }
+      }
+
+.editorial-section{padding:72px 0;background:#d7edf8;color:#173443}.editorial-layout{display:grid;grid-template-columns:1fr 2fr;gap:48px}.editorial-layout h2{font-size:40px;line-height:1.15;font-weight:400;margin:0 0 28px}.editorial-layout p:not(.section-label){font-size:17px;line-height:1.75;max-width:780px;margin:0 0 20px}.founder-bio{font-size:16px;line-height:1.75;margin-top:20px;max-width:620px}.hero h1{overflow-wrap:break-word;letter-spacing:0}.hero-content{min-width:0}@media(max-width:680px){.editorial-section{padding:44px 0}.editorial-layout{grid-template-columns:1fr;gap:24px}.editorial-layout h2{font-size:30px}.editorial-layout p:not(.section-label){font-size:16px}.hero h1{font-size:36px!important;line-height:1.12!important}.hero{min-height:650px;height:auto}.hero-inner{min-height:650px}.hero-description p{font-size:15px}.founder-bio{font-size:15px}}
+</style>
     <noscript>
       <style>
         .video-control { display: none; }
@@ -356,14 +372,15 @@
           <a href="./services.html#pricing">Pricing</a>
           <a href="./about.html">About</a>
           <a href="./assets.html" aria-current="page">Assets</a>
-          <a href="./portal/login.html" class="client-login">Client Login</a>
+          <a href="./regions.html">Regions</a>
+          <a href="./login.html" class="client-login">Client Login</a>
         </div>
       </nav>
     </header>
 
     <main id="main">
       <section class="hero inner-hero" aria-labelledby="hero-heading">
-        <video class="hero-video" id="field-video" src="./disaster.mp4" poster="./disaster-poster.jpg" muted loop playsinline preload="metadata" aria-label="Aerial footage of properties and roads following a disaster"></video>
+        <video class="hero-video" id="field-video" src="./disaster.mp4" poster="./outputs/disaster-poster.jpg" muted loop playsinline preload="metadata" aria-label="Aerial footage of properties and roads following a disaster"></video>
         <div class="hero-inner wrap">
           <div class="hero-content">
             <h1 id="hero-heading"><span>Our assets.</span> <span>Air to ground.</span></h1>
@@ -381,9 +398,10 @@
         </div>
       </section>
 
+<section class="editorial-section" id="technology"><div class="wrap editorial-layout"><p class="section-label">TECHNOLOGY</p><div><h2>Technology in Service of the Claim.</h2><p>We don't start by asking which drone to fly.</p><p>We start by asking <strong>what information the adjuster needs.</strong></p><p>From there, Lite Flite determines the most effective way to capture it.</p><p>That may mean handheld imaging and LiDAR for one property, an enterprise drone for another, or a crewed aircraft capturing data across an entire affected region.</p><p>Our technology stack includes LiDAR, high-resolution imaging, enterprise UAS platforms, aerial mapping systems, positioning technology, and modern data-processing workflows.</p><p>Each exists for the same reason:</p><p><strong>to create a clearer, more complete record of the property.</strong></p></div></div></section>
       <nav class="service-strip" aria-label="Asset categories">
         <div class="service-strip-inner wrap">
-          <a href="#drones">Drones <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+          <a href="#drones">Aerial Assets <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           <a href="#sensors">Sensors <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           <a href="#docks">Docks <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           <a href="#field-equipment">Field Equipment <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
@@ -396,17 +414,42 @@
             <p class="section-label"><span class="number">01 /</span> FLEET DIRECTORY</p>
             <h2 id="fleet-heading">The equipment behind the work.</h2>
           </div>
-          <p class="fleet-note">Our equipment directory is coming soon. Explore the categories below.</p>
+          <p class="fleet-note">Explore our aerial fleet and the equipment that supports work in the field.</p>
 
-          <article class="service-detail" id="drones" aria-labelledby="drones-heading">
-            <p class="section-label"><span class="number">01</span> DRONES</p>
-            <div>
-              <h3 id="drones-heading">Aircraft</h3>
-              <p>Drones for aerial capture, mapping, and inspection.</p>
+          <article class="service-detail aerial-assets" id="drones" aria-labelledby="drones-heading">
+            <p class="section-label"><span class="number">01</span> AERIAL ASSETS</p>
+            <div class="aerial-intro">
+              <h3 id="drones-heading">Our aerial fleet</h3>
+              <p>Compact mapping drones, an industrial aircraft platform, and a crewed airplane for regional operations.</p>
             </div>
-            <div class="asset-list">
-              <!-- Add confirmed fleet entries here: model, role, key capabilities, and availability. -->
-              <p class="asset-pending">Equipment details coming soon.</p>
+            <div class="asset-list aerial-list">
+              <section class="fleet-entry" aria-labelledby="mavic-heading">
+                <div>
+                  <span class="asset-quantity">3 aircraft</span>
+                  <h4 id="mavic-heading">DJI Mavic 3 Enterprise</h4>
+                </div>
+                <p>Compact, portable drones for aerial mapping, site documentation, and visual inspections. A mechanical-shutter camera captures detailed imagery for photogrammetry and accurate site models.</p>
+              </section>
+              <section class="fleet-entry" aria-labelledby="matrice-heading">
+                <div>
+                  <span class="asset-quantity">1 aircraft</span>
+                  <h4 id="matrice-heading">DJI Matrice 350 RTK</h4>
+                </div>
+                <p>A rugged industrial drone platform for demanding mapping and inspection projects. Supports interchangeable camera and LiDAR payloads, with RTK positioning for precise flight operations. Capture capabilities depend on the fitted payload.</p>
+              </section>
+              <section class="fleet-entry" aria-labelledby="cessna-heading">
+                <div>
+                  <span class="asset-quantity">1 aircraft</span>
+                  <h4 id="cessna-heading">Cessna 182</h4>
+                </div>
+                <div class="aircraft-description">
+                  <p>A four-seat, single-engine airplane outfitted with Teledyne Stratus and used for aerial mapping, post-disaster damage assessment, and broad-area reconnaissance, providing an overhead view of terrain, infrastructure, and affected communities. Based at Pearson Field (KVUO) in Vancouver, Washington, serving Washington, Oregon, and Northern California.</p>
+                  <ul class="scope-list aircraft-base" aria-label="Cessna base and service area">
+                    <li><strong>Home base:</strong> Pearson Field (KVUO) &middot; Vancouver, WA</li>
+                    <li><strong>Service area:</strong> Washington, Oregon &amp; Northern California</li>
+                  </ul>
+                </div>
+              </section>
             </div>
           </article>
 
@@ -459,7 +502,7 @@
     <footer class="site-footer">
       <div class="footer-inner wrap">
         <a class="footer-brand" href="./index.html" aria-label="lite flite home">lite flite</a>
-        <nav class="footer-nav" aria-label="Footer navigation"><a href="./index.html">Home</a><a href="./services.html">Services</a><a href="./services.html#pricing">Pricing</a><a href="./about.html">About</a><a href="./assets.html" aria-current="page">Assets</a></nav>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="./index.html">Home</a><a href="./services.html">Services</a><a href="./services.html#pricing">Pricing</a><a href="./about.html">About</a><a href="./assets.html" aria-current="page">Assets</a><a href="./regions.html">Regions</a></nav>
         <p class="copyright">&copy; <span id="copyright-year">2026</span> lite flite</p>
       </div>
     </footer>

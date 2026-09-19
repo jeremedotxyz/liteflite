@@ -303,6 +303,10 @@
         .home-button { width: 44px; padding: 0; margin-right: 12px; flex-shrink: 0; }
         .nav-links a.mobile-home { display: flex; }
       }
+
+.editorial-section{padding:72px 0;background:#d7edf8;color:#173443}.editorial-layout{display:grid;grid-template-columns:1fr 2fr;gap:48px}.editorial-layout h2{font-size:40px;line-height:1.15;font-weight:400;margin:0 0 28px}.editorial-layout p:not(.section-label){font-size:17px;line-height:1.75;max-width:780px;margin:0 0 20px}.founder-bio{font-size:16px;line-height:1.75;margin-top:20px;max-width:620px}.hero h1{overflow-wrap:break-word;letter-spacing:0}.hero-content{min-width:0}@media(max-width:680px){.editorial-section{padding:44px 0}.editorial-layout{grid-template-columns:1fr;gap:24px}.editorial-layout h2{font-size:30px}.editorial-layout p:not(.section-label){font-size:16px}.hero h1{font-size:36px!important;line-height:1.12!important}.hero{min-height:650px;height:auto}.hero-inner{min-height:650px}.hero-description p{font-size:15px}.founder-bio{font-size:15px}}
+      .service-detail{grid-template-columns:minmax(140px,1fr) minmax(0,3fr)}
+      @media(max-width:680px){.service-detail{grid-template-columns:1fr}}
     </style>
     <noscript>
       <style>
@@ -354,7 +358,7 @@
           <a href="./about.html">About</a>
           <a href="./assets.html">Assets</a>
           <a href="./regions.html">Regions</a>
-          <a href="https://liteflite.onrender.com/portal/login.html" class="client-login">Client Login</a>
+          <a href="./login.html" class="client-login">Client Login</a>
         </div>
       </nav>
     </header>
@@ -364,9 +368,9 @@
         <video class="hero-video" id="field-video" src="./disaster.mp4" poster="./disaster-poster.jpg" muted loop playsinline preload="metadata" aria-label="Aerial footage of properties and roads following a disaster"></video>
         <div class="hero-inner wrap">
           <div class="hero-content">
-            <h1 id="hero-heading"><span>Aerial inspection</span> <span>&amp; mapping.</span></h1>
+            <h1 id="hero-heading"><span>Property Intelligence</span> <span>From Every Angle.</span></h1>
             <div class="hero-description">
-              <p>Claim documentation, LiDAR mapping, infrastructure review, and property inspection. A flight profile that fits the job.</p>
+              <p>Lite Flite combines insurance expertise with modern capture technology to provide a more complete understanding of a property.</p>
               <a class="primary-link" href="#service-details">Find your service <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
             </div>
           </div>
@@ -382,12 +386,13 @@
       <nav class="service-strip" aria-label="Inspection services">
         <div class="service-strip-inner wrap">
           <a href="#insurance">Insurance &amp; claims <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
-          <a href="#lidar">LiDAR &amp; surveying <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
-          <a href="#infrastructure">Solar &amp; telecom <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+          <a href="#lidar">LiDAR &amp; 3D <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+          <a href="#infrastructure">Aerial mapping <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           <a href="#property">Property inspection <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
         </div>
       </nav>
 
+<section class="editorial-section" id="insurance"><div class="wrap editorial-layout"><p class="section-label">INSURANCE &amp; CLAIMS</p><div><h2>Built Around the Claim.</h2><p>Insurance professionals don't need another collection of impressive aerial images. They need accurate, organized information that helps them understand a property and move a claim forward.</p><p>Lite Flite supports adjusters and carriers with detailed property documentation, measurements, imagery, LiDAR data, damage assessment, and digital records that can be reviewed without repeatedly returning to the site.</p><p>For catastrophe events, our combination of ground, drone, and crewed-aircraft capabilities allows operations to scale from individual properties to entire affected regions.</p><p><strong>Document the property. Understand the damage. Move the claim forward.</strong></p></div></div></section>
       <section class="detail-section" id="service-details" aria-labelledby="service-heading">
         <div class="wrap">
           <div class="detail-heading">
@@ -395,57 +400,11 @@
             <h2 id="service-heading">The right view for the job.</h2>
           </div>
 
-          <article class="service-detail" id="insurance" aria-labelledby="insurance-heading">
-            <p class="section-label"><span class="number">01</span> INSURANCE</p>
-            <div>
-              <h3 id="insurance-heading">Claim documentation</h3>
-              <p>Roof, exterior, storm, fire, and site condition imagery captured for adjusters, carriers, and property owners. A clear visual record to support the assessment and repair process.</p>
-            </div>
-            <ul class="scope-list" aria-label="Insurance inspection scope">
-              <li>Roof &amp; exterior conditions</li>
-              <li>Storm &amp; fire damage</li>
-              <li>Site conditions &amp; access</li>
-            </ul>
-          </article>
-
-          <article class="service-detail" id="lidar" aria-labelledby="lidar-heading">
-            <p class="section-label"><span class="number">02</span> LIDAR</p>
-            <div>
-              <h3 id="lidar-heading">Mapping &amp; measurement</h3>
-              <p>LiDAR-supported site scans for terrain, access, elevations, and perimeter review. Drone surveying and measurable site context for mapping and disaster relief work.</p>
-            </div>
-            <ul class="scope-list" aria-label="LiDAR and surveying scope">
-              <li>Terrain &amp; elevation capture</li>
-              <li>Site &amp; perimeter mapping</li>
-              <li>Disaster relief surveying</li>
-            </ul>
-          </article>
-
-          <article class="service-detail" id="infrastructure" aria-labelledby="infrastructure-heading">
-            <p class="section-label"><span class="number">03</span> INFRASTRUCTURE</p>
-            <div>
-              <h3 id="infrastructure-heading">Solar &amp; telecom</h3>
-              <p>Panel, roofline, tower, equipment, and access inspections where repeatable angles and clear records matter. Aerial views of installations that are difficult to inspect from the ground.</p>
-            </div>
-            <ul class="scope-list" aria-label="Infrastructure inspection scope">
-              <li>Solar installations &amp; rooflines</li>
-              <li>Towers &amp; site equipment</li>
-              <li>Access &amp; visible conditions</li>
-            </ul>
-          </article>
-
-          <article class="service-detail" id="property" aria-labelledby="property-heading">
-            <p class="section-label"><span class="number">04</span> PROPERTY</p>
-            <div>
-              <h3 id="property-heading">Residential &amp; commercial</h3>
-              <p>Property condition capture for owners, builders, managers, and teams preparing repair or maintenance work. See the roof, exterior, and wider site together.</p>
-            </div>
-            <ul class="scope-list" aria-label="Property inspection scope">
-              <li>Residential &amp; commercial sites</li>
-              <li>Roof &amp; exterior documentation</li>
-              <li>Repair &amp; maintenance planning</li>
-            </ul>
-          </article>
+<article class="service-detail" id="claims" aria-labelledby="claims-heading"><p class="section-label">01 / SERVICES</p><div><h3 id="claims-heading">Claims Documentation</h3><p>Detailed visual and spatial documentation designed to support adjusters throughout the claims process.</p></div></article>
+<article class="service-detail" id="property" aria-labelledby="property-heading"><p class="section-label">02 / SERVICES</p><div><h3 id="property-heading">Property &amp; Damage Assessment</h3><p>Capture roofs, structures, surrounding property, and affected areas using the appropriate combination of ground-based, aerial, and LiDAR systems.</p></div></article>
+<article class="service-detail" id="catastrophe" aria-labelledby="catastrophe-heading"><p class="section-label">03 / SERVICES</p><div><h3 id="catastrophe-heading">Catastrophe Response</h3><p>Rapid deployment following storms, wildfires, floods, and other major events, with the ability to scale data collection across multiple properties and larger geographic areas.</p></div></article>
+<article class="service-detail" id="lidar" aria-labelledby="lidar-heading"><p class="section-label">04 / SERVICES</p><div><h3 id="lidar-heading">LiDAR &amp; 3D Documentation</h3><p>Detailed spatial capture provides measurable three-dimensional records of structures and environments that can be analyzed, archived, and referenced throughout the life of a claim.</p></div></article>
+<article class="service-detail" id="infrastructure" aria-labelledby="infrastructure-heading"><p class="section-label">05 / SERVICES</p><div><h3 id="infrastructure-heading">Aerial Inspection &amp; Mapping</h3><p>Drone and crewed-aircraft platforms provide efficient access to roofs, large properties, infrastructure, and geographic areas that would otherwise be difficult or time-consuming to document.</p></div></article>
         </div>
       </section>
 

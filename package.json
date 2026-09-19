@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "node portal/build-public-login.mjs && vite build",
     "start": "node portal/server.js",
     "demo": "node portal/manage.js demo",
     "client": "node portal/manage.js client",

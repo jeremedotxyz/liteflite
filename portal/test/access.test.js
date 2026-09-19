@@ -14,6 +14,23 @@ test('accounts, protected uploads, client isolation and session revocation',asyn
   assert.equal((await req('/projects')).status,401);
   const login=async id=>{const r=await req('/login',null,{email:id+'@example.com',password:'Test-password-1234'});assert.equal(r.status,200);assert.match(r.headers.get('set-cookie'),/HttpOnly/);return r.headers.get('set-cookie').split(';')[0];};
   const admin=await login('admin'),alice=await login('alice'),bob=await login('bob');
+  const formLogin = (origin, password = 'Test-password-1234') => fetch(base + '/auth/login', {
+    method:'POST', redirect:'manual',
+    headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded','Sec-Fetch-Site':'cross-site'},
+    body:new URLSearchParams({email:'alice@example.com',password})
+  });
+  assert.equal((await formLogin('https://wrong.example')).status,403);
+  const publicLogin = await formLogin('https://liteflite.io');
+  assert.equal(publicLogin.status,200);
+  assert.match(publicLogin.headers.get('set-cookie'),/HttpOnly/);
+  assert.match(publicLogin.headers.get('set-cookie'),/SameSite=Strict/);
+  assert.match(await publicLogin.text(),/location.replace/);
+  const publicCookie = publicLogin.headers.get('set-cookie').split(';')[0];
+  assert.equal((await req('/session',publicCookie)).status,200);
+  const badPublicLogin = await formLogin('https://liteflite.io','wrong-password');
+  assert.equal(badPublicLogin.status,303);
+  assert.equal(badPublicLogin.headers.get('location'),'https://liteflite.io/login.html?error=invalid');
+  assert.equal((await fetch(base+'/api/logout',{method:'POST',headers:{Origin:'https://liteflite.io',cookie:publicCookie}})).status,403);
   assert.equal((await req('/projects',alice,{name:'Forbidden',ownerId:'alice'})).status,403);
   const created=await req('/projects',admin,{name:'Private scan',ownerId:'alice'});assert.equal(created.status,201);const {project}=await created.json();
   assert.equal((await req('/projects/'+project.id,bob)).status,404);assert.equal((await req('/projects',bob).then(r=>r.json())).projects.length,0);

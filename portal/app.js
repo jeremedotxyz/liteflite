@@ -54,27 +54,45 @@ export function createApp({ directory, origin = 'http://127.0.0.1:8787', publicD
   const attempts = new Map();
   const dummyHash = hashPassword(randomBytes(24).toString('hex'));
 
-  app.post('/api/login', async (req, res) => {
+  // The public site's form navigates to the backend; other API writes stay same-origin.
+  app.post('/auth/login', express.urlencoded({ extended: false, limit: '20kb' }), (req, res, next) => {
+    res.set('Cache-Control', 'no-store');
+    if (!['https://liteflite.io', 'https://www.liteflite.io', app.locals.origin].includes(req.get('origin'))) {
+      return res.status(403).type('text').send('This request is not allowed.');
+    }
+    req.publicLogin = true;
+    next();
+  }, login);
+  app.post('/api/login', login);
+  async function login(req, res) {
+    const fail = (status, error, code) => req.publicLogin
+      ? res.redirect(303, 'https://liteflite.io/login.html?error=' + code)
+      : res.status(status).json({ error });
     const email = typeof req.body?.email === 'string' ? req.body.email.trim().toLowerCase() : '';
     const password = req.body?.password;
-    if (!validEmail(email) || typeof password !== 'string' || password.length > 256) return res.status(400).json({ error: 'Enter a valid email and password.' });
+    if (!validEmail(email) || typeof password !== 'string' || password.length > 256) return fail(400, 'Enter a valid email and password.', 'invalid');
     const key = req.socket.remoteAddress || 'unknown';
     const now = Date.now();
     for (const [k, a] of attempts) if (a.until < now) attempts.delete(k);
     const attempt = attempts.get(key) || { count: 0, until: now + 15 * 60 * 1000 };
-    if (attempt.count >= 10) return res.status(429).json({ error: 'Too many sign-in attempts. Try again in 15 minutes.' });
+    if (attempt.count >= 10) return fail(429, 'Too many sign-in attempts. Try again in 15 minutes.', 'limited');
     attempt.count++; attempts.set(key, attempt);
     const user = db.prepare('SELECT * FROM users WHERE email=?').get(email);
     const matches = await verifyPassword(password, user?.password_hash || await dummyHash);
-    if (!user || !matches) return res.status(401).json({ error: 'The email or password is incorrect.' });
+    if (!user || !matches) return fail(401, 'The email or password is incorrect.', 'invalid');
     attempts.delete(key);
     db.prepare('DELETE FROM sessions WHERE expires<=?').run(now);
     const previous = sessionToken(req);
     if (previous) db.prepare('DELETE FROM sessions WHERE token_hash=?').run(digest(previous));
     const token = randomBytes(32).toString('hex');
     db.prepare('INSERT INTO sessions VALUES (?,?,?)').run(digest(token), user.id, now + lifetime);
-    res.cookie(cookieName, token, cookieOptions()).json({ user: publicUser(user) });
-  });
+    res.cookie(cookieName, token, cookieOptions());
+    if (req.publicLogin) {
+      // Establish a same-origin document before navigation so Strict cookies are sent.
+      return res.type('html').send('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Signed in | lite flite</title></head><body><p>Signed in. <a href="/portal/index.html">Open your projects</a></p><script>location.replace("/portal/index.html")</script></body></html>');
+    }
+    res.json({ user: publicUser(user) });
+  }
   app.get('/api/session', requireUser, (req, res) => res.json({ user: publicUser(req.user) }));
   app.post('/api/logout', requireUser, (req, res) => {
     db.prepare('DELETE FROM sessions WHERE token_hash=?').run(digest(sessionToken(req)));
@@ -162,7 +180,7 @@ export function createApp({ directory, origin = 'http://127.0.0.1:8787', publicD
   });
   app.use('/portal', express.static(join(publicDirectory, 'portal'), { index: false }));
   app.get('/', (req, res) => res.sendFile(join(publicDirectory, 'index.html')));
-  const publicFiles = new Set(['index.html','lite-flite-working.html','about.html','services.html','lite-flite-logo.png','disaster.mp4','disaster-poster.jpg']);
+  const publicFiles = new Set(['index.html','lite-flite-working.html','about.html','services.html','assets.html','regions.html','pricing.html','login.html','lite-flite-logo.png','disaster.mp4','disaster-poster.jpg']);
   app.use((req, res) => {
     const name = req.path.slice(1);
     if (publicFiles.has(name)) return res.sendFile(join(publicDirectory, name));
