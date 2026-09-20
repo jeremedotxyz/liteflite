@@ -312,6 +312,10 @@
       .asset-quantity { display: block; margin-bottom: 12px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 12px; color: var(--bg); }
       .fleet-entry h4 { margin: 0; font-size: 24px; line-height: 1.25; font-weight: 500; }
       .fleet-entry p { margin-top: 0; }
+      #field-equipment { grid-template-columns: minmax(130px, .55fr) minmax(220px, 1fr) minmax(360px, 2fr); }
+      #field-equipment .fleet-entry { display: block; }
+      #field-equipment .fleet-entry > div + div { margin-top: 24px; }
+      #field-equipment .fleet-entry p + p { margin-top: 18px; }
       .aircraft-base { margin-top: 20px; }
       @media (max-width: 980px) {
         .aerial-intro, .aerial-list { grid-column: 1 / -1; }
@@ -319,6 +323,7 @@
       @media (max-width: 680px) {
         .fleet-entry { grid-template-columns: 1fr; gap: 16px; padding-block: 24px; }
         .fleet-entry h4 { font-size: 23px; }
+        #field-equipment { grid-template-columns: 1fr; }
       }
 
 .editorial-section{padding:72px 0;background:#d7edf8;color:#173443}.editorial-layout{display:grid;grid-template-columns:1fr 2fr;gap:48px}.editorial-layout h2{font-size:40px;line-height:1.15;font-weight:400;margin:0 0 28px}.editorial-layout p:not(.section-label){font-size:17px;line-height:1.75;max-width:780px;margin:0 0 20px}.founder-bio{font-size:16px;line-height:1.75;margin-top:20px;max-width:620px}.hero h1{overflow-wrap:break-word;letter-spacing:0}.hero-content{min-width:0}@media(max-width:680px){.editorial-section{padding:44px 0}.editorial-layout{grid-template-columns:1fr;gap:24px}.editorial-layout h2{font-size:30px}.editorial-layout p:not(.section-label){font-size:16px}.hero h1{font-size:36px!important;line-height:1.12!important}.hero{min-height:650px;height:auto}.hero-inner{min-height:650px}.hero-description p{font-size:15px}.founder-bio{font-size:15px}}
@@ -481,11 +486,20 @@
             <p class="section-label"><span class="number">04</span> FIELD EQUIPMENT</p>
             <div>
               <h3 id="field-equipment-heading">On the ground</h3>
-              <p>Surveying tools, power systems, and other field support equipment.</p>
+              <p>Proprietary scanning, modeling, and field support systems.</p>
             </div>
             <div class="asset-list">
-              <!-- Add confirmed fleet entries here: model, role, key capabilities, and availability. -->
-              <p class="asset-pending">Equipment details coming soon.</p>
+              <section class="fleet-entry" aria-labelledby="medusa-heading">
+                <div>
+                  <span class="asset-quantity">Proprietary system</span>
+                  <h4 id="medusa-heading">Medusa</h4>
+                </div>
+                <div>
+                  <p>Medusa is Lite Flite’s proprietary ground-based LiDAR scanning and 3D modeling system, developed to create detailed spatial records of properties, structures, and complex environments.</p>
+                  <p>Built for field deployment, Medusa captures the geometry and physical context needed to produce measurable 3D models that can be reviewed, interpreted, and referenced throughout a claim or property assessment.</p>
+                  <p>Its purpose is straightforward: transform real-world conditions into clear digital information that helps adjusters, carriers, and property teams understand a site without relying on photographs alone.</p>
+                </div>
+              </section>
             </div>
           </article>
         </div>
