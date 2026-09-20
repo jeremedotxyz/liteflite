@@ -5,8 +5,8 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createApp} from '../app.js';
 import {hashPassword} from '../db.js';
-test('accounts, protected uploads, client isolation and session revocation',async()=>{
- const directory=await mkdtemp(join(tmpdir(),'lf-test-'));const app=createApp({directory});const db=app.locals.db;
+test('accounts, contact routing, protected uploads, client isolation and session revocation',async()=>{
+ const directory=await mkdtemp(join(tmpdir(),'lf-test-'));const sent=[];const app=createApp({directory,sendContactMessage:async message=>sent.push(message)});const db=app.locals.db;
  for(const [id,role] of [['admin','admin'],['alice','client'],['bob','client']])db.prepare('INSERT INTO users(id,email,name,role,password_hash) VALUES(?,?,?,?,?)').run(id,id+'@example.com',id,role,await hashPassword('Test-password-1234'));
  const server=await new Promise(resolve=>{const s=app.listen(0,'127.0.0.1',()=>resolve(s));});const base=`http://127.0.0.1:${server.address().port}`;app.locals.origin=base;
  const req=(path,cookie,body,method=body?'POST':'GET')=>fetch(base+'/api'+path,{method,headers:{...(cookie?{cookie}:{}),...(body instanceof FormData?{}:{'Content-Type':'application/json'})},body:body instanceof FormData?body:body?JSON.stringify(body):undefined});
@@ -20,6 +20,18 @@ test('accounts, protected uploads, client isolation and session revocation',asyn
     body:new URLSearchParams({email:'alice@example.com',password})
   });
   assert.equal((await formLogin('https://wrong.example')).status,403);
+  const contact = (origin, overrides = {}) => fetch(base + '/auth/contact', {
+    method:'POST', redirect:'manual', headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams({name:'Jordan Lee',organization:'Example Carrier',email:'jordan@example.com',phone:'555-0100',inquiry_type:'Claims documentation',location:'Portland, OR',timing:'Within 1 week',details:'Document roof and exterior damage.',website:'',...overrides})
+  });
+  assert.equal((await contact('https://wrong.example')).status,403);
+  assert.match((await contact('https://liteflite.io',{email:'not-an-email'})).headers.get('location'),/result=error/);
+  const validContact = await contact('https://liteflite.io');
+  assert.equal(validContact.status,303);
+  assert.equal(validContact.headers.get('location'),'https://liteflite.io/contact.html?result=sent#contact-form');
+  assert.deepEqual(sent[0].recipients,['tim@liteflite.io','jereme@liteflite.io']);
+  assert.equal(sent[0].email,'jordan@example.com');
+  assert.equal(sent[0].details,'Document roof and exterior damage.');
   const publicLogin = await formLogin('https://liteflite.io');
   assert.equal(publicLogin.status,200);
   assert.match(publicLogin.headers.get('set-cookie'),/HttpOnly/);

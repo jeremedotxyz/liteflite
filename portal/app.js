@@ -12,8 +12,41 @@ const validEmail = value => typeof value === 'string' && value.length <= 254 && 
 const text = (value, max = 160) => typeof value === 'string' && value.trim().length > 0 && value.length <= max;
 const cookieName = 'lf_session';
 const lifetime = 12 * 60 * 60 * 1000;
+const contactRecipients = ['tim@liteflite.io', 'jereme@liteflite.io'];
+const inquiryTypes = new Set(['Claims documentation', 'Property or damage assessment', 'Catastrophe response', 'LiDAR or 3D documentation', 'Aerial inspection or mapping', 'General inquiry']);
+const inquiryTimings = new Set(['', 'Immediate / active event', 'Within 1 week', 'Within 30 days', 'Planning ahead', 'Not sure yet']);
+const escapeHtml = value => value.replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 
-export function createApp({ directory, origin = 'http://127.0.0.1:8787', publicDirectory = resolve('outputs') } = {}) {
+async function sendContactEmail(message) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.CONTACT_FROM;
+  if (!apiKey || !from) throw new Error('Contact email is not configured.');
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      from,
+      to: contactRecipients,
+      reply_to: message.email,
+      subject: `[Lite Flite Website] ${message.inquiryType} - ${message.name}`,
+      text: [
+        `Name: ${message.name}`,
+        `Organization: ${message.organization || 'Not provided'}`,
+        `Email: ${message.email}`,
+        `Phone: ${message.phone || 'Not provided'}`,
+        `Inquiry: ${message.inquiryType}`,
+        `Location: ${message.location || 'Not provided'}`,
+        `Timing: ${message.timing || 'Not provided'}`,
+        '',
+        message.details
+      ].join('\n'),
+      html: `<h2>New Lite Flite website inquiry</h2><p><strong>Name:</strong> ${escapeHtml(message.name)}</p><p><strong>Organization:</strong> ${escapeHtml(message.organization || 'Not provided')}</p><p><strong>Email:</strong> ${escapeHtml(message.email)}</p><p><strong>Phone:</strong> ${escapeHtml(message.phone || 'Not provided')}</p><p><strong>Inquiry:</strong> ${escapeHtml(message.inquiryType)}</p><p><strong>Location:</strong> ${escapeHtml(message.location || 'Not provided')}</p><p><strong>Timing:</strong> ${escapeHtml(message.timing || 'Not provided')}</p><p><strong>Details:</strong></p><p>${escapeHtml(message.details).replaceAll('\n', '<br>')}</p>`
+    })
+  });
+  if (!response.ok) throw new Error(`Contact email provider returned ${response.status}.`);
+}
+
+export function createApp({ directory, origin = 'http://127.0.0.1:8787', publicDirectory = resolve('outputs'), sendContactMessage = sendContactEmail } = {}) {
   const { db, dir } = openDatabase(directory);
   const app = express();
   app.locals.origin = origin;
@@ -52,7 +85,43 @@ export function createApp({ directory, origin = 'http://127.0.0.1:8787', publicD
   const requireAdmin = (req, res, next) => req.user.role === 'admin' ? next() : res.status(403).json({ error: 'Administrator access required.' });
   const getProject = (id, user) => db.prepare("SELECT p.*, u.name AS client_name FROM projects p JOIN users u ON u.id=p.owner_id WHERE p.id=? AND (?='admin' OR p.owner_id=?)").get(id, user.role, user.id);
   const attempts = new Map();
+  const contactAttempts = new Map();
   const dummyHash = hashPassword(randomBytes(24).toString('hex'));
+
+  app.post('/auth/contact', express.urlencoded({ extended: false, limit: '20kb', parameterLimit: 12 }), async (req, res) => {
+    res.set('Cache-Control', 'no-store');
+    const returnTo = result => res.redirect(303, `https://liteflite.io/contact.html?result=${result}#contact-form`);
+    if (!['https://liteflite.io', 'https://www.liteflite.io', app.locals.origin].includes(req.get('origin'))) {
+      return res.status(403).type('text').send('This request is not allowed.');
+    }
+    if (typeof req.body?.website === 'string' && req.body.website.trim()) return returnTo('sent');
+    const message = {
+      name: typeof req.body?.name === 'string' ? req.body.name.trim() : '',
+      organization: typeof req.body?.organization === 'string' ? req.body.organization.trim() : '',
+      email: typeof req.body?.email === 'string' ? req.body.email.trim().toLowerCase() : '',
+      phone: typeof req.body?.phone === 'string' ? req.body.phone.trim() : '',
+      inquiryType: typeof req.body?.inquiry_type === 'string' ? req.body.inquiry_type.trim() : '',
+      location: typeof req.body?.location === 'string' ? req.body.location.trim() : '',
+      timing: typeof req.body?.timing === 'string' ? req.body.timing.trim() : '',
+      details: typeof req.body?.details === 'string' ? req.body.details.trim() : ''
+    };
+    if (!text(message.name, 120) || !validEmail(message.email) || !inquiryTypes.has(message.inquiryType) || !text(message.details, 4000) || !inquiryTimings.has(message.timing) || message.organization.length > 160 || message.phone.length > 50 || message.location.length > 240) {
+      return returnTo('error');
+    }
+    const key = req.socket.remoteAddress || 'unknown';
+    const now = Date.now();
+    for (const [address, attempt] of contactAttempts) if (attempt.until < now) contactAttempts.delete(address);
+    const attempt = contactAttempts.get(key) || { count: 0, until: now + 60 * 60 * 1000 };
+    if (attempt.count >= 5) return returnTo('error');
+    attempt.count++; contactAttempts.set(key, attempt);
+    try {
+      await sendContactMessage({ ...message, recipients: [...contactRecipients] });
+      return returnTo('sent');
+    } catch (error) {
+      console.error('Contact delivery failed:', error.message);
+      return returnTo('error');
+    }
+  });
 
   // The public site's form navigates to the backend; other API writes stay same-origin.
   app.post('/auth/login', express.urlencoded({ extended: false, limit: '20kb' }), (req, res, next) => {
@@ -180,7 +249,7 @@ export function createApp({ directory, origin = 'http://127.0.0.1:8787', publicD
   });
   app.use('/portal', express.static(join(publicDirectory, 'portal'), { index: false }));
   app.get('/', (req, res) => res.sendFile(join(publicDirectory, 'index.html')));
-  const publicFiles = new Set(['index.html','lite-flite-working.html','about.html','services.html','assets.html','regions.html','pricing.html','login.html','lite-flite-logo.png','disaster.mp4','disaster-poster.jpg']);
+  const publicFiles = new Set(['index.html','lite-flite-working.html','about.html','services.html','assets.html','regions.html','pricing.html','contact.html','login.html','lite-flite-logo.png','disaster.mp4','disaster-poster.jpg']);
   app.use((req, res) => {
     const name = req.path.slice(1);
     if (publicFiles.has(name)) return res.sendFile(join(publicDirectory, name));
