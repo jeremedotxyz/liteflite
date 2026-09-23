@@ -249,7 +249,7 @@ export function createApp({ directory, origin = 'http://127.0.0.1:8787', publicD
   });
   app.use('/portal', express.static(join(publicDirectory, 'portal'), { index: false }));
   app.get('/', (req, res) => res.sendFile(join(publicDirectory, 'index.html')));
-  const publicFiles = new Set(['index.html','lite-flite-working.html','about.html','services.html','assets.html','regions.html','pricing.html','contact.html','login.html','lite-flite-logo.png','disaster.mp4','disaster-poster.jpg']);
+  const publicFiles = new Set(['index.html','lite-flite-working.html','about.html','services.html','assets.html','regions.html','events.html','pricing.html','contact.html','login.html','lite-flite-logo.png','disaster.mp4','disaster-poster.jpg']);
   app.use((req, res) => {
     const name = req.path.slice(1);
     if (publicFiles.has(name)) return res.sendFile(join(publicDirectory, name));
