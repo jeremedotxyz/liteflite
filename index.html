@@ -54,23 +54,56 @@
         place-items: center;
         background: var(--bg);
         pointer-events: none;
-        animation: introExit .9s ease 2.65s forwards;
+        animation: introExit .8s cubic-bezier(.5, 0, 1, 1) 3.75s forwards;
+      }
+      .intro-mark {
+        position: relative;
+        width: min(78vw, 960px);
+        aspect-ratio: 3 / 2;
       }
       .intro img {
+        position: absolute;
+        inset: 0;
         display: block;
-        width: min(78vw, 960px);
-        max-height: 80svh;
-        height: auto;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
         user-select: none;
-        animation: introLogo 1.55s ease-out .25s both;
+        mix-blend-mode: lighten;
+        will-change: clip-path, transform, opacity, filter;
       }
-      .page { animation: pageIn .8s ease 2.95s both; }
+      .intro-lettering {
+        clip-path: inset(44% 0 20% 0);
+        animation: letteringIn 1.15s cubic-bezier(.2, .82, .25, 1) .18s both;
+      }
+      .intro-beacon {
+        position: absolute;
+        left: 29%;
+        top: 24%;
+        width: 44%;
+        height: 20%;
+        transform-origin: left 70%;
+        animation: beaconExpand 1.5s cubic-bezier(.18, .8, .2, 1) 1.12s both;
+        will-change: transform, opacity, filter;
+      }
+      .beacon-ray { position: absolute; inset: 0; background: var(--orange); }
+      .beacon-ray:nth-child(1) { clip-path: polygon(0 72%, 100% 0, 100% 25%); }
+      .beacon-ray:nth-child(2) { clip-path: polygon(0 72%, 100% 40%, 100% 64%); }
+      .beacon-ray:nth-child(3) { clip-path: polygon(0 72%, 100% 76%, 100% 100%); }
+      .page { animation: pageIn .8s ease 3.98s both; }
       .intro-dismissed .intro, body:has(:focus-visible) .intro { display: none; }
       .intro-dismissed .page, body:has(:focus-visible) .page { animation: none; }
-      @keyframes introLogo {
-        from { opacity: 0; transform: translateY(18px) scale(.985); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
+      @keyframes letteringIn {
+        0% { opacity: 0; filter: blur(5px); clip-path: inset(44% 100% 20% 0); transform: translateY(16px); }
+        65% { opacity: 1; filter: blur(0); }
+        100% { opacity: 1; filter: blur(0); clip-path: inset(44% 0 20% 0); transform: translateY(0); }
+      }
+      @keyframes beaconExpand {
+        0% { opacity: 0; filter: brightness(1) drop-shadow(0 0 0 rgba(255, 106, 32, 0)); transform: scaleX(.02); }
+        12% { opacity: 1; }
+        72% { filter: brightness(1.18) drop-shadow(0 0 16px rgba(255, 106, 32, .38)); }
+        88% { transform: scaleX(1.025); }
+        100% { opacity: 1; filter: brightness(1) drop-shadow(0 0 0 rgba(255, 106, 32, 0)); transform: scaleX(1); }
       }
       @keyframes introExit {
         to { opacity: 0; visibility: hidden; }
@@ -294,7 +327,14 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="intro" aria-hidden="true">
-      <img src="./lite-flite-logo.png" alt="" width="1536" height="1024" fetchpriority="high">
+      <div class="intro-mark">
+        <img class="intro-lettering" src="./lite-flite-logo.png" alt="" width="1536" height="1024" fetchpriority="high">
+        <span class="intro-beacon" aria-hidden="true">
+          <span class="beacon-ray"></span>
+          <span class="beacon-ray"></span>
+          <span class="beacon-ray"></span>
+        </span>
+      </div>
     </div>
     <!-- Icon paths from Lucide, ISC license. -->
     <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
