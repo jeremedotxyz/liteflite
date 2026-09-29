@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 let html = await readFile('portal/web/login.html', 'utf8');
 const css = await readFile('portal/web/portal.css', 'utf8');
 html = html.replace('</head>', '<meta name="referrer" content="strict-origin-when-cross-origin"><style>' + css + '</style></head>')
+  .replace('</head>', '<script src="./maintenance-notice.js" defer></script></head>')
   .replace('<form id="login-form">', '<form id="login-form" method="post" action="https://liteflite.onrender.com/auth/login">')
   .replace(/<i data-lucide="[^"]+"[^>]*><\/i>/g, '')
   .replace('<button id="show-password"', '<button id="show-password"')
