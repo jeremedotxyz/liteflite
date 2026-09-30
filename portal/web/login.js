@@ -1,5 +1,4 @@
 import './portal.css';
-import '../../maintenance-notice.js';
 import { api, refreshIcons } from './shared.js';
 refreshIcons();
 const form = document.querySelector('#login-form');
