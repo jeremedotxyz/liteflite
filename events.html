@@ -159,7 +159,7 @@
         .services { padding-block: 74px; }
         .approach { padding-block: 72px; }
       }
-      @media (max-width: 680px) {
+      @media (max-width: 1080px) {
         :root { --gutter: 24px; }
         html { scroll-padding-top: 20px; }
         .header-inner { min-height: 94px; }
@@ -218,7 +218,7 @@
         h1 { font-size: 40px; }
         .service-row h3 { font-size: 20px; }
       }
-      @media (max-width: 680px) and (max-height: 740px) {
+      @media (max-width: 1080px) and (max-height: 740px) {
         .hero { height: calc(100svh - 150px); min-height: 412px; }
         .hero-inner { padding-block: 22px 14px; }
         h1 { font-size: 38px; }
@@ -267,7 +267,7 @@
       .founder-list li { padding-top: 26px; border-top: 1px solid rgba(23, 52, 67, .25); }
       .founder-name { margin: 0; font-size: 32px; line-height: 1.2; font-weight: 500; }
       .founder-role { margin-top: 12px; color: var(--bg); font-size: 14px; line-height: 1.6; }
-      @media (max-width: 680px) {
+      @media (max-width: 1080px) {
         .founders { padding-block: 56px; }
         .founder-list { grid-template-columns: 1fr; gap: 28px; }
         .founder-list li { padding-top: 22px; }
@@ -283,7 +283,7 @@
         .story-layout { grid-template-areas: "label" "content"; }
         .about-story { padding-block: 72px; }
       }
-      @media (max-width: 680px) {
+      @media (max-width: 1080px) {
         .nav-links a[aria-current="page"] { color: var(--orange); }
         .inner-hero { height: clamp(460px, calc(100svh - 226px), 600px); }
         .principle-strip .service-strip-inner { grid-template-columns: repeat(3, minmax(0, 1fr)); min-height: 76px; padding-block: 10px; }
@@ -304,7 +304,7 @@
         .statement-section { padding-block: 56px; }
         .statement-copy h2 { font-size: 32px; }
       }
-      @media (max-width: 680px) and (max-height: 740px) {
+      @media (max-width: 1080px) and (max-height: 740px) {
         .inner-hero { height: max(398px, calc(100svh - 150px)); }
       }
       @media (min-width: 681px) and (max-height: 740px) {
@@ -314,7 +314,7 @@
       .home-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin-left: auto; margin-right: 36px; padding: 0; border: 0; color: var(--ink); font-size: 14px; font-weight: 500; }
       .home-button:hover { color: var(--white); text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 8px; }
       .nav-links a.mobile-home { display: none; }
-      @media (max-width: 680px) {
+      @media (max-width: 1080px) {
         .home-button { width: 44px; padding: 0; margin-right: 12px; flex-shrink: 0; }
         .nav-links a.mobile-home { display: flex; }
       }
@@ -350,7 +350,7 @@
         .contact-intro { position: static; }
         .contact-intro h2, .contact-intro > p:not(.section-label) { max-width: 680px; }
       }
-      @media (max-width: 680px) {
+      @media (max-width: 1080px) {
         .contact-section { padding-block: 56px 64px; }
         .contact-layout { gap: 38px; }
         .contact-intro h2 { font-size: 34px; }
@@ -378,7 +378,7 @@
         .event-row { grid-template-columns: 130px minmax(0, 1fr) 190px; }
         .event-link { grid-column: 2 / -1; justify-self: start; }
       }
-      @media (max-width: 680px) {
+      @media (max-width: 1080px) {
         .events-section { padding-block: 56px 64px; }
         .events-heading { gap: 24px; margin-bottom: 34px; }
         .events-heading h2 { font-size: 34px; }
@@ -393,7 +393,7 @@
     <noscript>
       <style>
         .video-control { display: none; }
-        @media (max-width: 680px) {
+        @media (max-width: 1080px) {
           .header-inner { flex-wrap: wrap; padding-bottom: 14px; }
           .menu-toggle { display: none; }
           .nav-links { position: static; visibility: visible; flex-direction: row; flex-wrap: wrap; justify-content: flex-end; width: 100%; gap: 14px; padding: 0; border: 0; }
@@ -404,8 +404,8 @@
         }
       </style>
     </noscript>
-</head>
-  <body>
+<link rel="stylesheet" href="./refinement.css"><script src="./refinement.js" defer></script></head>
+  <body class="refined interior">
     <a class="skip-link" href="#main">Skip to content</a>
     <!-- Icon paths from Lucide, ISC license. -->
     <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -433,17 +433,7 @@
           <svg class="icon menu-open" aria-hidden="true"><use href="#menu"/></svg>
           <svg class="icon menu-close" aria-hidden="true"><use href="#close"/></svg>
         </button>
-        <div class="nav-links" id="main-navigation">
-          <a class="mobile-home" href="./index.html">Home</a>
-          <a href="./services.html">Services</a>
-          <a href="./services.html#pricing">Pricing</a>
-          <a href="./about.html">About</a>
-          <a href="./assets.html">Assets</a>
-          <a href="./regions.html">Regions</a>
-          <a href="./events.html" aria-current="page">Events</a>
-          <a href="./contact.html">Contact</a>
-          <a href="./login.html" class="client-login">Client Login</a>
-        </div>
+        <div class="nav-links" id="main-navigation"><a href="./services.html">Services</a><a href="./assets.html">Technology</a><a href="./regions.html">Coverage</a><a href="./about.html">About</a><a href="./events.html">Events</a><a href="./contact.html">Contact</a><a href="./login.html" class="client-login">Client Login</a></div>
       </nav>
     </header>
 
@@ -538,7 +528,7 @@
     <script>
       const menuButton = document.querySelector('.menu-toggle');
       const navigation = document.querySelector('#main-navigation');
-      const mobile = window.matchMedia('(max-width: 680px)');
+      const mobile = window.matchMedia('(max-width: 1080px)');
 
       function setMenu(open, restoreFocus = false) {
         menuButton.setAttribute('aria-expanded', String(open));
